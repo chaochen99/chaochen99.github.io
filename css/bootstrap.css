@@ -599,8 +599,15 @@ pre code {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-align:center;
   /*margin-right: -15px;*/
   /*margin-left: -15px;*/
+}
+.line{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+
 }
 
 .no-gutters {
@@ -623,8 +630,8 @@ pre code {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 .col {
@@ -1288,15 +1295,17 @@ pre code {
   }
   .col-lg-2 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
+    -webkit-box-align: center;
+    /*-ms-flex: 0 0 16.666667%;*/
+    /*flex: 0 0 16.666667%;*/
+    max-width: 33.3%;
   }
   .col-lg-3 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -webkit-box-align: center;
+    /*-ms-flex: 0 0 25%;*/
+    /*flex: 0 0 25%;*/
+    max-width: 50%;
   }
   .col-lg-4 {
     -webkit-box-flex: 0;
@@ -1314,7 +1323,8 @@ pre code {
     -webkit-box-flex: 0;
     /*-ms-flex: 0 0 50%;*/
     /*flex: 0 0 50%;*/
-    max-width: 50%;
+    /*max-width: 50%;*/
+
   }
   .col-lg-7 {
     -webkit-box-flex: 0;
@@ -7676,6 +7686,8 @@ button.bg-dark:focus {
 .pt-5,
 .py-5 {
   padding-top: 3rem !important;
+  border-color: #1e7e34;
+  border-width: 4px;
 }
 
 .pr-5,
@@ -7686,6 +7698,8 @@ button.bg-dark:focus {
 .pb-5,
 .py-5 {
   padding-bottom: 3rem !important;
+  border-color: #1e7e34;
+  border-width: 4px;
 }
 
 .pl-5,
@@ -8318,7 +8332,7 @@ button.bg-dark:focus {
   }
   .mt-lg-5,
   .my-lg-5 {
-    margin-top: 3rem !important;
+    margin-top: 1rem !important;
   }
   .mr-lg-5,
   .mx-lg-5 {
@@ -8326,7 +8340,7 @@ button.bg-dark:focus {
   }
   .mb-lg-5,
   .my-lg-5 {
-    margin-bottom: 3rem !important;
+    margin-bottom: 1rem !important;
   }
   .ml-lg-5,
   .mx-lg-5 {
@@ -8732,7 +8746,7 @@ button.bg-dark:focus {
 }
 
 .text-left {
-  text-align: left !important;
+  text-align: center !important;
 }
 
 .text-right {

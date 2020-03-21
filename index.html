@@ -29,7 +29,12 @@
 <link href="http://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800" rel="stylesheet">
 <!-- //Fonts -->
 <script src="js/echarts.min.js"></script>
+<style>
+	p{
+		text-align: center;
+	}
 
+</style>
 </head>
 
 <body>
@@ -44,8 +49,7 @@
 				<label for="drop" class="toggle">Menu</label>
 				<input type="checkbox" id="drop" />
 				<ul class="menu mx-lg-auto">
-					<li><a href="index.html" class="active">Home</a></li>
-					<li><a href="#about">About Us</a></li>
+					<li><a href="index.html" class="active">主页</a></li>
 					<li>
 						<!-- First Tier Drop Down -->
 						<label for="drop-2" class="toggle toogle-2">Pages <span class="fa fa-angle-down" aria-hidden="true"></span>
@@ -53,14 +57,17 @@
 						<a href="#">Pages <span class="fa fa-angle-down" aria-hidden="true"></span></a>
 						<input type="checkbox" id="drop-2" />
 						<ul>
-							<li><a href="#services" class="drop-text">Services</a></li>
-							<li><a href="#stats" class="drop-text">Stats</a></li>
-							<li><a href="#blog" class="drop-text">Blog</a></li>
-							<li><a href="#test" class="drop-text">Testimonials</a></li>
+							<li><a href="#about-theme" class="drop-text">主题的阶段性变化</a></li>
+							<li><a href="#yanjiudanwei" class="drop-text">研究单位分布情况</a></li>
+							<li><a href="#about-jijin" class="drop-text">基金增速变化情况</a></li>
+							<li><a href="#about-AI" class="drop-text">AI投资和发展</a></li>
+							<li><a href="#about-danwei" class="drop-text">研究单位的论文发表及引用</a></li>
+							<li><a href="#about-xueke" class="drop-text">学科的资金投入情况</a></li>
 						</ul>
 					</li>
+					<li><a href="#test">theme</a></li>
 					<li><a href="#gallery">Gallery</a></li>
-					<li><a href="#contact">Contact Us</a></li>
+					<li><a href="#contact">联系我们</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -72,7 +79,7 @@
 <!-- //header 2 -->
 
 <!-- banner -->
-<div class="banner_main">
+<div id="home" class="banner_main">
 	<div class="overlay-w3pvt">
 		<div class="container">
 			<div class="banner-info text-center">
@@ -122,582 +129,487 @@
 </section>
 <!-- //banner bottom grids -->
 <!-- banner bottom grids -->
-<section class=" py-5" id="about">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
-				<div class="col-lg-6 cont-inf-w3ls">
+<section class=" py-5" id="about-theme"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+			<div class="line mt-lg-5 mt-4" >
+				<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 					<h4> 主题的阶段性变化</h4>
 					<p>通过分析论文关键词及摘要，挖掘各研究方向在不同时间段的研究热点。</p>
-					<p>Praesent ullamcorper dui turpis.At vero eos et accusam et justo duo dolores et ea rebum.Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
-
-					<a class="btn mt-lg-4 mt-3 read scroll" href="#zhutibianhuabianhua" role="button">Learn More</a>
+					<p>点击图中的某一时间点饼状图会显示当前年份各个方向论文所占的比例</p>
 				</div>
-				<div class="col-lg-6 cont-img-w3ls">
-					<img src="images/ab1.jpg" alt="" class="img-fluid image1">
+				<div class="col-lg-6" style="height: 70vh;width: 80vm;padding-top: 2rem" id="echarts-zhutibianhua" >
 
 				</div>
+				<script>
+					var myChart = echarts.init(document.getElementById('echarts-zhutibianhua'));
+
+					setTimeout(function () {
+
+						option = {
+							legend: {type: 'scroll'},
+							tooltip: {
+								trigger: 'axis',
+								showContent: false
+							},
+							dataset: {
+								source: [
+									['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+									['机器学习', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+									['自然语言处理', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+									['计算机视觉', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+									['深度学习', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+								]
+							},
+							xAxis: {type: 'category'},
+							yAxis: {gridIndex: 0},
+							grid: {top: '55%'},
+							series: [
+								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
+								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
+								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
+								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
+								{
+									type: 'pie',
+									id: 'pie',
+									radius: '30%',
+									center: ['50%', '25%'],
+									label: {
+										formatter: '{b}: {@2012} ({d}%)'
+									},
+									encode: {
+										itemName: 'product',
+										value: '2012',
+										tooltip: '2012'
+									}
+								}
+							]
+						};
+
+						myChart.on('updateAxisPointer', function (event) {
+							var xAxisInfo = event.axesInfo[0];
+							if (xAxisInfo) {
+								var dimension = xAxisInfo.value + 1;
+								myChart.setOption({
+									series: {
+										id: 'pie',
+										label: {
+											formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+										},
+										encode: {
+											value: dimension,
+											tooltip: dimension
+										}
+									}
+								});
+							}
+						});
+
+						myChart.setOption(option);
+
+					});
+
+				</script>
 			</div>
-		</div>
+
 	</div>
 </section>
 
-
-<!--&lt;!&ndash;主题变化的图标&ndash;&gt;-->
-<section class=" py-5" id="zhutibianhuabianhua">
-	<div class="container py-md-5" style="border: 2px">
-		<div class=" text-left">
-			<div  style="height: 80vh;width: 100vm;border: #1b1e21" id="echarts-zhutibianhua">
+<section class=" py-5" id="yanjiudanwei"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> 研究单位分布情况</h4>
+				<p>在人工智能贡献最多的top-5单位。</p>
+				<p>点击圆环可以显示对应类型，数量和份额</p>
+			</div>
+			<div class="col-lg-6" style="height: 50vh;width: 60vm;padding-top: 2rem" id="echarts-ai" >
 
 			</div>
 			<script>
-				var myChart = echarts.init(document.getElementById('echarts-zhutibianhua'));
+				var myChart21= echarts.init(document.getElementById('echarts-ai'));
+				option = {
+					tooltip: {
+						trigger: 'item',
+						formatter: '{a} <br/>{b}: {c} ({d}%)'
+					},
+					legend: {
+						type: 'scroll',
 
-				setTimeout(function () {
-
-					option = {
-						legend: {},
-						tooltip: {
-							trigger: 'axis',
-							showContent: false
-						},
-						dataset: {
-							source: [
-								['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-								['机器学习', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-								['自然语言处理', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-								['计算机视觉', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
-								['深度学习', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
-							]
-						},
-						xAxis: {type: 'category'},
-						yAxis: {gridIndex: 0},
-						grid: {top: '55%'},
-						series: [
-							{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-							{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-							{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-							{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-							{
-								type: 'pie',
-								id: 'pie',
-								radius: '30%',
-								center: ['50%', '25%'],
+						data: ['北京大学', '清华大学', '上海交通大学', '复旦大学', '浙江大学']
+					},
+					series: [
+						{
+							name: '访问来源',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							avoidLabelOverlap: false,
+							label: {
+								show: false,
+								position: 'center'
+							},
+							emphasis: {
 								label: {
-									formatter: '{b}: {@2012} ({d}%)'
-								},
-								encode: {
-									itemName: 'product',
-									value: '2012',
-									tooltip: '2012'
+									show: true,
+									fontSize: '30',
+									fontWeight: 'bold'
 								}
-							}
-						]
-					};
-
-					myChart.on('updateAxisPointer', function (event) {
-						var xAxisInfo = event.axesInfo[0];
-						if (xAxisInfo) {
-							var dimension = xAxisInfo.value + 1;
-							myChart.setOption({
-								series: {
-									id: 'pie',
-									label: {
-										formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-									},
-									encode: {
-										value: dimension,
-										tooltip: dimension
-									}
-								}
-							});
+							},
+							labelLine: {
+								show: false
+							},
+							data: [
+								{value: 335, name: '北京大学'},
+								{value: 310, name: '清华大学'},
+								{value: 234, name: '上海交通大学'},
+								{value: 135, name: '复旦大学'},
+								{value: 1548, name: '浙江大学'}
+							]
 						}
-					});
+					]
+				};
 
-					myChart.setOption(option);
 
-				});
+				myChart21.setOption(option)
 
 			</script>
 		</div>
+
 	</div>
 </section>
 
-<section class=" py-5" id="yanjiudanwei">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
-				<div class="col-lg-6 cont-img-w3ls">
-					<img src="images/ab1.jpg" alt="" class="img-fluid image1">
-
-				</div>
-				<div class="col-lg-6 cont-inf-w3ls">
-					<h4> 研究单位分布情况</h4>
-					<p>在各个研究方向贡献最多的top-k单位。</p>
-					<p>Praesent ullamcorper dui turpis.At vero eos et accusam et justo duo dolores et ea rebum.Integer sit amet mattis quam, sit amet ultricies velit. Praesent ullamcorper dui turpis.</p>
-
-					<a class="btn mt-lg-4 mt-3 read scroll" href="#services" role="button">Learn More</a>
-				</div>
+<section class=" py-5" id="about-jijin"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> 基金增速变化情况</h4>
+				<p>计算机与其他专业之间的比较，总的资金增长率和计算机方面的增长率，表明计算机的地位是否有所提升。</p>
+				<p>点击图例可以隐藏该图例所代表的信息</p>
+			</div>
+			<div class="col-lg-6" style="height: 50vh;width: 60vm;padding-top: 2rem" id="echarts-jijinzongtihefenbie1" >
 
 			</div>
+			<script>
+				var myChart21= echarts.init(document.getElementById('echarts-jijinzongtihefenbie1'));
+				option = {
+
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['人工智能领域投入资金', '总投入资金'],
+						type: 'scroll'
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					xAxis: {
+						type: 'category',
+						boundaryGap: false,
+						data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name: '人工智能领域投入资金',
+							type: 'line',
+							stack: '总量',
+							data: [120, 132, 101, 134, 90, 230, 210]
+						},
+						{
+							name: '总投入资金',
+							type: 'line',
+							stack: '总量',
+							data: [220, 182, 191, 234, 290, 330, 310]
+						}
+					]
+				};
+
+				myChart21.setOption(option)
+
+			</script>
 		</div>
+
 	</div>
 </section>
-
-<!--<section class=" py-5" id="yanjiudanweigongxian">-->
-<!--	<div class="container py-md-5" style="border: 2px">-->
-<!--		<div class=" text-left">-->
-<!--			<div  style="height: 80vh;width: 100vm;border: #1b1e21" id="echarts-yanjiudanweigongxian">-->
-
-<!--			</div>-->
-<!--			<script>-->
-<!--				var myChart1 = echarts.init(document.getElementById('echarts-yanjiudanweigongxian'));-->
-<!--				option = {-->
-<!--					tooltip: {-->
-<!--						trigger: 'axis',-->
-<!--						axisPointer: {            // 坐标轴指示器，坐标轴触发有效-->
-<!--							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'-->
-<!--						}-->
-<!--					},-->
-<!--					legend: {-->
-<!--						data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他']-->
-<!--					},-->
-<!--					grid: {-->
-<!--						left: '3%',-->
-<!--						right: '4%',-->
-<!--						bottom: '3%',-->
-<!--						containLabel: true-->
-<!--					},-->
-<!--					xAxis: [-->
-<!--						{-->
-<!--							type: 'category',-->
-<!--							data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']-->
-<!--						}-->
-<!--					],-->
-<!--					yAxis: [-->
-<!--						{-->
-<!--							type: 'value'-->
-<!--						}-->
-<!--					],-->
-<!--					series: [-->
-<!--						{-->
-<!--							name: '直接访问',-->
-<!--							type: 'bar',-->
-<!--							data: [320, 332, 301, 334, 390, 330, 320]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '邮件营销',-->
-<!--							type: 'bar',-->
-<!--							stack: '广告',-->
-<!--							data: [120, 132, 101, 134, 90, 230, 210]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '联盟广告',-->
-<!--							type: 'bar',-->
-<!--							stack: '广告',-->
-<!--							data: [220, 182, 191, 234, 290, 330, 310]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '视频广告',-->
-<!--							type: 'bar',-->
-<!--							stack: '广告',-->
-<!--							data: [150, 232, 201, 154, 190, 330, 410]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '搜索引擎',-->
-<!--							type: 'bar',-->
-<!--							data: [862, 1018, 964, 1026, 1679, 1600, 1570],-->
-<!--							markLine: {-->
-<!--								lineStyle: {-->
-<!--									type: 'dashed'-->
-<!--								},-->
-<!--								data: [-->
-<!--									[{type: 'min'}, {type: 'max'}]-->
-<!--								]-->
-<!--							}-->
-<!--						},-->
-<!--						{-->
-<!--							name: '百度',-->
-<!--							type: 'bar',-->
-<!--							barWidth: 5,-->
-<!--							stack: '搜索引擎',-->
-<!--							data: [620, 732, 701, 734, 1090, 1130, 1120]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '谷歌',-->
-<!--							type: 'bar',-->
-<!--							stack: '搜索引擎',-->
-<!--							data: [120, 132, 101, 134, 290, 230, 220]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '必应',-->
-<!--							type: 'bar',-->
-<!--							stack: '搜索引擎',-->
-<!--							data: [60, 72, 71, 74, 190, 130, 110]-->
-<!--						},-->
-<!--						{-->
-<!--							name: '其他',-->
-<!--							type: 'bar',-->
-<!--							stack: '搜索引擎',-->
-<!--							data: [62, 82, 91, 84, 109, 110, 120]-->
-<!--						}-->
-<!--					]-->
-<!--				};-->
-<!--				myChart1.setOption(option)-->
-
-<!--			</script>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-
-<section class=" py-5" id="jijinzongti">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
-
-				<div class="col-lg-6 cont-inf-w3ls">
-					<h4> 基金增速变化情况</h4>
-					<p>计算机与其他专业之间的比较，总的资金增长率和计算机方面的增长率，表明计算机的地位是否有所提升。</p>
-
-				</div>
-				<div class="col-lg-6 cont-img-w3ls">
-					<div  style="height: 35vh;width: 35vm;border: #1b1e21" id="echarts-jijinzongtihefenbie1">
-
-					</div>
-					<script>
-						var myChart21= echarts.init(document.getElementById('echarts-jijinzongtihefenbie1'));
-						option = {
-
-							tooltip: {
-								trigger: 'axis'
-							},
-							legend: {
-								data: ['人工智能领域投入资金', '总投入资金']
-							},
-							grid: {
-								left: '3%',
-								right: '4%',
-								bottom: '3%',
-								containLabel: true
-							},
-							toolbox: {
-								feature: {
-									saveAsImage: {}
-								}
-							},
-							xAxis: {
-								type: 'category',
-								boundaryGap: false,
-								data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
-							},
-							yAxis: {
-								type: 'value'
-							},
-							series: [
-								{
-									name: '人工智能领域投入资金',
-									type: 'line',
-									stack: '总量',
-									data: [120, 132, 101, 134, 90, 230, 210]
-								},
-								{
-									name: '总投入资金',
-									type: 'line',
-									stack: '总量',
-									data: [220, 182, 191, 234, 290, 330, 310]
-								}
-							]
-						};
-
-						myChart21.setOption(option)
-
-					</script>
-				</div>
+<section class=" py-5" id="about-AI"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> AI投资和发展</h4>
+				<p>人工智能方向投入对比</p>
+				<p>点击图例可以隐藏该图例所代表的信息</p>
 			</div>
-		</div>
-	</div>
-</section>
-<section class=" py-5" id="AIneibu">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
+			<div class="col-lg-6" style="height: 50vh;width: 60vm;padding-top: 2rem" id="echarts-AIneibu" >
 
-				<div class="col-lg-6 cont-inf-w3ls">
-					<h4> 人工智能方向投入对比</h4>
-					<p>计算机内部专业之间的比较，在第二个研究方向中，得出曲线图，看是否可以和基金投入情况相对应。</p>
-				</div>
-				<div class="col-lg-6 cont-img-w3ls">
-					<div  style="height: 35vh;width: 35vm;border: #1b1e21" id="echarts-AIneibu">
-
-					</div>
-					<script>
-						var myChart3= echarts.init(document.getElementById('echarts-AIneibu'));
-						option = {
-
-							tooltip: {
-								trigger: 'axis'
-							},
-							legend: {
-								type: 'scroll',
-								right:15,
-								top:25,
-								data: ['机器学习获取资金', '机器学习发展趋势','自然语言处理获取资金','自然语言处理发展趋势','计算机视觉获取资金','计算机视觉发展趋势']
-							},
-							grid: {
-								left: '3%',
-								right: '4%',
-								bottom: '3%',
-								containLabel: true
-							},
-							toolbox: {
-								feature: {
-									saveAsImage: {}
-								}
-							},
-							xAxis: {
-								type: 'category',
-								boundaryGap: false,
-								data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
-							},
-							yAxis: {
-								type: 'value'
-							},
-							series: [
-								{
-									name: '机器学习获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [120, 132, 101, 134, 90, 230, 210]
-								},
-								{
-									name: '计算机视觉获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [220, 182, 191, 234, 290, 330, 310]
-								},
-								{
-									name: '自然语言处理',
-									type: 'line',
-									stack: '总量',
-									data: [300, 145, 124, 345, 123, 234, 654]
-								},
-								{
-									name: '自然语言处理发展趋势',
-									type: 'line',
-									stack: '总量',
-									data: [400, 245, 224, 445,223, 334, 554]
-								},
-								{
-									name: '机器学习发展趋势',
-									type: 'line',
-									stack: '总量',
-									data: [423, 12, 124, 234, 53, 213, 432]
-								},
-								{
-									name: '计算机视觉发展趋势',
-									type: 'line',
-									stack: '总量',
-									data: [342, 123, 12, 324, 123, 324, 123]
-								}
-							]
-						};
-
-						myChart3.setOption(option)
-
-					</script>
-				</div>
 			</div>
+			<script>
+				var myChart3= echarts.init(document.getElementById('echarts-AIneibu'));
+				option = {
+
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						type: 'scroll',
+
+						top:25,
+						data: ['机器学习获取资金', '机器学习发展趋势','自然语言处理获取资金','自然语言处理发展趋势','计算机视觉获取资金','计算机视觉发展趋势']
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					xAxis: {
+						type: 'category',
+						boundaryGap: false,
+						data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name: '机器学习获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [120, 132, 101, 134, 90, 230, 210]
+						},
+						{
+							name: '计算机视觉获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [220, 182, 191, 234, 290, 330, 310]
+						},
+						{
+							name: '自然语言处理',
+							type: 'line',
+							stack: '总量',
+							data: [300, 145, 124, 345, 123, 234, 654]
+						},
+						{
+							name: '自然语言处理发展趋势',
+							type: 'line',
+							stack: '总量',
+							data: [400, 245, 224, 445,223, 334, 554]
+						},
+						{
+							name: '机器学习发展趋势',
+							type: 'line',
+							stack: '总量',
+							data: [423, 12, 124, 234, 53, 213, 432]
+						},
+						{
+							name: '计算机视觉发展趋势',
+							type: 'line',
+							stack: '总量',
+							data: [342, 123, 12, 324, 123, 324, 123]
+						}
+					]
+				};
+
+				myChart3.setOption(option)
+
+			</script>
 		</div>
+
 	</div>
 </section>
+
 <!-- //banner bottom grids -->
 <!--/stats -->
-<section class=" py-5" id="yanjiudanwei-jijin">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
-
-				<div class="col-lg-6 cont-inf-w3ls">
-					<h4> 研究单位的论文发表及引用</h4>
-					<p>论文数量top5研究单位所发的论文数量是否和基金支持正相关</p>
-					<p>论文质量top5研究单位所发的论文质量（引文数量）是否和基金支持正相关</p>
-				</div>
-				<div class="col-lg-6 cont-img-w3ls">
-					<div  style="height: 35vh;width: 35vm;border: #1b1e21" id="echarts-yanjiudanwei-jijin">
-
-					</div>
-					<script>
-						var myChart4= echarts.init(document.getElementById('echarts-yanjiudanwei-jijin'));
-						option = {
-
-							tooltip: {
-								trigger: 'axis'
-							},
-							legend: {
-								type: 'scroll',
-								right:15,
-								top:25,
-								data: ['北京大学获取资金', '北京大学论文发表数量趋势','北京大学论文发表质量趋势','自然语言处理发展趋势','计算机视觉获取资金','计算机视觉发展趋势']
-							},
-							grid: {
-								left: '3%',
-								right: '4%',
-								bottom: '3%',
-								containLabel: true
-							},
-							toolbox: {
-								feature: {
-									saveAsImage: {}
-								}
-							},
-							xAxis: {
-								type: 'category',
-								boundaryGap: false,
-								data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
-							},
-							yAxis: {
-								type: 'value'
-							},
-							series: [
-								{
-									name: '北京大学获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [120, 132, 101, 134, 90, 230, 210]
-								},
-								{
-									name: '计算机视觉获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [220, 182, 191, 234, 290, 330, 310]
-								},
-								{
-									name: '北京大学论文发表数量趋势',
-									type: 'line',
-									stack: '总量',
-									data: [300, 145, 124, 345, 123, 234, 654]
-								},
-								{
-									name: '自然语言处理发展趋势',
-									type: 'line',
-									stack: '总量',
-									data: [400, 245, 224, 445,223, 334, 554]
-								},
-								{
-									name: '北京大学论文发表质量趋势',
-									type: 'line',
-									stack: '总量',
-									data: [423, 12, 124, 234, 53, 213, 432]
-								},
-								{
-									name: '计算机视觉发展趋势',
-									type: 'line',
-									stack: '总量',
-									data: [342, 123, 12, 324, 123, 324, 123]
-								}
-							]
-						};
-
-						myChart4.setOption(option)
-
-					</script>
-				</div>
+<section class=" py-5" id="about-danwei"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> 研究单位的论文发表及引用</h4>
+				<p>论文数量top5研究单位所发的论文数量和质量是否和基金支持正相关</p>
+				<p>点击图例可以隐藏该图例所代表的信息</p>
 			</div>
-		</div>
-	</div>
-</section>
+			<div class="col-lg-6" style="height: 50vh;width: 60vm;padding-top: 2rem" id="echarts-danwei" >
 
-<section class=" py-5" id="xuekezhichi">
-	<div class="container py-md-5">
-		<div class=" text-left">
-			<div class="row mt-lg-5 mt-4">
-
-				<div class="col-lg-6 cont-inf-w3ls">
-					<h4> 学科的资金投入情况</h4>
-					<p>观察传统学科的基金支持是否变化不大且处于较低的水平，优势学科的基金支持是否变化不大且处于较低的水平，潜力学科的基金支持是否是逐步增加，弱势学科的基金支持是否是一直处于较低水平或持续下降。</p>
-					<p></p>
-				</div>
-				<div class="col-lg-6 cont-img-w3ls">
-					<div  style="height: 35vh;width: 35vm;border: #1b1e21" id="echarts-xuekezhichi">
-
-					</div>
-					<script>
-						var myChart5= echarts.init(document.getElementById('echarts-xuekezhichi'));
-						option = {
-
-							tooltip: {
-								trigger: 'axis'
-							},
-							legend: {
-								type: 'scroll',
-								right:15,
-								top:25,
-								data: ['优势学科获取资金', '弱势学科获取资金','传统学科获取资金','潜力学科获取资金']
-							},
-							grid: {
-								left: '3%',
-								right: '4%',
-								bottom: '3%',
-								containLabel: true
-							},
-							toolbox: {
-								feature: {
-									saveAsImage: {}
-								}
-							},
-							xAxis: {
-								type: 'category',
-								boundaryGap: false,
-								data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
-							},
-							yAxis: {
-								type: 'value'
-							},
-							series: [
-								{
-									name: '优势学科获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [120, 132, 101, 134, 90, 230, 210]
-								},
-								{
-									name: '弱势学科获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [220, 182, 191, 234, 290, 330, 310]
-								},
-								{
-									name: '传统学科获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [300, 145, 124, 345, 123, 234, 654]
-								},
-								{
-									name: '潜力学科获取资金',
-									type: 'line',
-									stack: '总量',
-									data: [400, 245, 224, 445,223, 334, 554]
-								}
-							]
-						};
-
-						myChart5.setOption(option)
-
-					</script>
-				</div>
 			</div>
+			<script>
+				var myChart4= echarts.init(document.getElementById('echarts-danwei'));
+				option = {
+
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						type: 'scroll',
+
+						top:25,
+						data: ['北京大学获取资金', '北京大学论文发表数量趋势','北京大学论文发表质量趋势','清华大学获取资金', '清华大学论文发表数量趋势','清华大学论文发表质量趋势',]
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					xAxis: {
+						type: 'category',
+						boundaryGap: false,
+						data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name: '北京大学获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [120, 132, 101, 134, 90, 230, 210]
+						},
+						{
+							name: '北京大学论文发表质量趋势',
+							type: 'line',
+							stack: '总量',
+							data: [220, 182, 191, 234, 290, 330, 310]
+						},
+						{
+							name: '北京大学论文发表数量趋势',
+							type: 'line',
+							stack: '总量',
+							data: [300, 145, 124, 345, 123, 234, 654]
+						},
+						{
+							name: '清华大学获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [400, 245, 224, 445,223, 334, 554]
+						},
+						{
+							name:  '清华大学论文发表数量趋势',
+							type: 'line',
+							stack: '总量',
+							data: [423, 12, 124, 234, 53, 213, 432]
+						},
+						{
+							name: '清华大学论文发表质量趋势',
+							type: 'line',
+							stack: '总量',
+							data: [342, 123, 12, 324, 123, 324, 123]
+						}
+					]
+				};
+
+				myChart4.setOption(option)
+
+			</script>
 		</div>
+
 	</div>
 </section>
 
 
+<section class=" py-5" id="about-xueke"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> 学科的资金投入情况</h4>
+				<p>观察传统学科的基金支持是否变化不大且处于较低的水平，优势学科的基金支持是否变化不大且处于较低的水平，潜力学科的基金支持是否是逐步增加，弱势学科的基金支持是否是一直处于较低水平或持续下降。</p>
+				<p>点击图例可以隐藏该图例所代表的信息</p>
+			</div>
+			<div class="col-lg-6" style="height: 50vh;width: 50vm;padding-top: 2rem" id="echarts-xueke" >
 
-<!-- //banner-bottom -->
-<section class="testimonials" id="test">
+			</div>
+			<script>
+				var myChart5= echarts.init(document.getElementById('echarts-xueke'));
+				option = {
+
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						type: 'scroll',
+
+						top:25,
+						data: ['优势学科获取资金', '弱势学科获取资金','传统学科获取资金','潜力学科获取资金']
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					xAxis: {
+						type: 'category',
+						boundaryGap: false,
+						data: ['2010', '2011', '2012', '2013', '2014', '2015', '2016']
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name: '优势学科获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [120, 132, 101, 134, 90, 230, 210]
+						},
+						{
+							name: '弱势学科获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [220, 182, 191, 234, 290, 330, 310]
+						},
+						{
+							name: '传统学科获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [300, 145, 124, 345, 123, 234, 654]
+						},
+						{
+							name: '潜力学科获取资金',
+							type: 'line',
+							stack: '总量',
+							data: [400, 245, 224, 445,223, 334, 554]
+						}
+					]
+				};
+
+				myChart5.setOption(option)
+
+			</script>
+		</div>
+
+	</div>
+</section>
+
+<section  id="test">
 	<div class="overlay-w3pvt-test py-5">
 		<div class="container py-md-5">
 			<div class="test-info text-center">
-				<h3 class="my-md-2 my-3">Jenifer Burns</h3>
+				<h3 class="my-md-2 my-3">Chaochen Gao</h3>
 
 				<ul class="list-unstyled clients mb-3">
 					<li>
@@ -721,163 +633,90 @@
 						</a>
 					</li>
 				</ul>
-				<p><span class="fa fa-quote-left"></span> Lorem Ipsum has been the industry's standard since the 1500s. Praesent ullamcorper dui turpis.Nulla pellentesque mi non laoreet eleifend. Integer porttitor mollisar lorem, at molestie arcu pulvinar ut. <span class="fa fa-quote-right"></span> </p>
+				<p>"通过分析中国学者近年来在计算机国际会议的论文发表情况,挖掘活跃度大幅提升的重要时间节点,尝试从人才、产业、经费等方面的数据分析解释活跃起来的原因。
+					本文的分析对象为CCF推荐的A类和B类国际会议。内容分为三部分：中国学者参与情况、分析维度及解释、数据需求."</p>
 
 			</div>
 		</div>
 	</div>
 </section>
-<!-- footer -->
-<footer class="footer-content py-5">
+<footer id="contact" class="footer-content py-5">
 	<div class="container-fluid py-lg-5 inner-sec-w3ls">
 		<div class="row">
-			<div class="col-lg-4 footer-top mt-md-0 mt-sm-5 pr-lg-5">
-				<h2>
-					<a class="navbar-brand" href="index.html">
-						Florae</a>
-				</h2>
-				<p class="my-3">Donec consequat sam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus</p>
-				<ul class="top-right-info foot-icons mt-5">
-
-					<li class="mr-1 soci-effe facebook">
-						<a href="#">
-							<span class="fa fa-facebook-f"></span>
-						</a>
-					</li>
-					<li class="mr-1 soci-effe twitter">
-						<a href="#">
-							<span class="fa fa-twitter"></span>
-						</a>
-					</li>
-					<li class="mr-1 soci-effe google-plus">
-						<a href="#">
-							<span class="fa fa-google-plus"></span>
-						</a>
-					</li>
-					<li class="soci-effe dribbble">
-						<a href="#">
-							<span class="fa fa-dribbble"></span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="col-lg-3 mt-lg-0 mt-5">
-				<div class="footer-w3layouts">
-					<h3 class="mb-3 w3layouts_title">Navigation</h3>
-					<hr>
-					<div class="row">
-						<ul class="col-6 list-info-w3layouts links">
-
-							<li>
-								<a href="#home" class="scroll">
-									Home
-								</a>
-							</li>
-							<li>
-								<a href="#about" class="scroll">
-									About Us
-								</a>
-							</li>
-							<li>
-								<a href="#blog" class="scroll">
-									Blog Posts
-								</a>
-							</li>
-							<li>
-								<a href="#services" class="scroll">
-									Services
-								</a>
-							</li>
-							<li>
-								<a href="#contact">
-									Contact Us
-								</a>
-							</li>
-
-						</ul>
-						<ul class="col-6 list-info-w3layouts links">
-							<li>
-								<a href="#about" class="scroll">
-									Our Mission
-								</a>
-							</li>
-							<li>
-								<a href="#blog" class="scroll">
-									Latest Posts
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Explore
-								</a>
-							</li>
-							<li>
-								<a href="#contact" class="scroll">
-									Find us
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Privacy Policy
-								</a>
-							</li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
-
 			<div class="col-lg-2 mt-lg-0 mt-5">
 				<div class="footer-w3layouts">
 					<h3 class="mb-3 w3layouts_title">Contact Us</h3>
 					<hr>
 					<div class="last-w3pvt-contact">
 						<p>
-							<a href="mailto:example@email.com">info@example.com</a>
+							<a href="mailto:example@email.com">email:</a>
+						</p>
+					</div>
+					<div class="last-w3pvt-contact">
+						<p>
+							<a href="mailto:example@email.com">1563377399@qq.com</a>
 						</p>
 					</div>
 					<div class="last-w3pvt-contact my-2">
-						<p>+ 456 123 7890</p>
+						<p>wechat</p>
 					</div>
-					<div class="last-w3pvt-contact">
-						<p>+ 90 nsequursu dsdesdc,
-							<br>xxx Honey State 049436.</p>
+					<div class="last-w3pvt-contact my-2">
+						<p>gcc1563377399</p>
 					</div>
+
 				</div>
 			</div>
-			<div class="col-lg-3 mt-lg-0 mt-5">
+			<div class="col-lg-2 mt-lg-0 mt-5">
 				<div class="footer-w3layouts">
-					<h3 class="mb-3 w3layouts_title">Stay up to date</h3>
+					<h3 class="mb-3 w3layouts_title">Contact Us</h3>
 					<hr>
-					<div class="footer-text">
-						<p>By subscribing to our mailing list you will always get latest news and updates from us.</p>
-						<form action="#" method="post">
-							<input type="email" name="Email" placeholder="Enter your email..." required="">
-							<button class="btn1 btn"><span class="fa fa-paper-plane-o" aria-hidden="true"></span></button>
-						</form>
+					<div class="last-w3pvt-contact">
+						<p>
+							<a href="mailto:example@email.com">email:</a>
+						</p>
 					</div>
-				</div>
+					<div class="last-w3pvt-contact">
+						<p>
+							<a href="mailto:example@email.com">1563377399@qq.com</a>
+						</p>
+					</div>
+					<div class="last-w3pvt-contact my-2">
+						<p>wechat</p>
+					</div>
+					<div class="last-w3pvt-contact my-2">
+						<p>gcc1563377399</p>
+					</div>
 
+				</div>
+			</div>
+			<div class="col-lg-2 mt-lg-0 mt-5">
+				<div class="footer-w3layouts">
+					<h3 class="mb-3 w3layouts_title">Contact Us</h3>
+					<hr>
+					<div class="last-w3pvt-contact">
+						<p>
+							<a href="mailto:example@email.com">email:</a>
+						</p>
+					</div>
+					<div class="last-w3pvt-contact">
+						<p>
+							<a href="mailto:example@email.com">1563377399@qq.com</a>
+						</p>
+					</div>
+					<div class="last-w3pvt-contact my-2">
+						<p>wechat</p>
+					</div>
+					<div class="last-w3pvt-contact my-2">
+						<p>gcc1563377399</p>
+					</div>
+
+				</div>
 			</div>
 		</div>
 
 	</div>
 </footer>
-<!-- //footer -->
-<div class="copy-right py-2">
-	<div class="container-fluid inner-sec-w3ls">
-		<div class="row">
-			<div class="col-lg-8 copy-w3layouts">
-				<p class="copy-right-grids text-lg-left text-center my-sm-4 my-4">Copyright &copy; 2019.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-			</div>
-			<div class="col-lg-4 w3pvt-footer text-md-right text-center">
-				<div class="move-top"><a href="#home" class="move-top"> <span class="fa fa-angle-up" aria-hidden="true"></span></a></div>
-			</div>
 
-		</div>
-		<!-- //footer bottom -->
-	</div>
-</div>
 
 
 </body>

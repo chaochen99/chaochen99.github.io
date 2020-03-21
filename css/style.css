@@ -694,7 +694,10 @@ section.about-bottom {
 .bottom-gd2-active h3 {
     color: #fff;
 }
-
+.border1{
+    border: #e6e1e1 solid 5px;
+    border-radius: 20px;"
+}
 .feature-grids h3,
 .bottom-gd.fea h3 {
     font-size: 1em;
@@ -723,6 +726,7 @@ h3.title-w3ls.two {
     line-height: 1.7em;
     text-transform: capitalize;
     margin-bottom: 1em;
+    text-align: center;
 }
 
 .cont-inf-w3ls p {
@@ -988,7 +992,7 @@ textarea {
 /*-- /testimonials --*/
 
 .testimonials {
-    background: url(../images/banner2.jpg) no-repeat center;
+    background: url(../images/banner3.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -1070,6 +1074,7 @@ h3.w3layouts_title {
     color: #444;
     font-weight: 600;
     text-transform: uppercase;
+    text-align: center;
 
 }
 
