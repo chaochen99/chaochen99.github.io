@@ -595,13 +595,17 @@ a.login-button-2 span {
 
 /* banner */
 .banner_main {
-    background: url(../images/banner1.jpg) no-repeat center;
+    /*background: url(../images/banner1.jpg) no-repeat center;*/
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;
     min-height: 38em;
+    background-image: url("../images/projects.jpeg");
+    background-position: center center;
+    background-attachment: fixed;
+    margin-top: 50px;
 }
 
 .overlay-w3pvt {
@@ -633,8 +637,8 @@ a.login-button-2 span {
 .banner-info p:before {
     position: absolute;
     content: "";
-    background: #fff;
-    width: 60px;
+    /*background: #fff;*/
+    width: 40px;
     height: 3px;
     bottom: -47px;
 }
@@ -731,6 +735,10 @@ h3.title-w3ls.two {
 
 .cont-inf-w3ls p {
     margin: 1em 0;
+    font-size: 17px;
+    color: black;
+    text-align: left;
+    text-indent:2em;
 }
 
 .read {
