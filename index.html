@@ -3,7 +3,7 @@
 
 <head >
 
-	<title>关于中国学者参与AI国际会议情况的数据分析</title>
+	<title>从国际会议参与情况分析中国人工智能的发展水平</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -509,7 +509,7 @@
 				</script>
 				<p>自然语言处理方向从2011年之后，发表论文数量有大幅增长，计算机视觉在2006年呈现转折点，此后开始呈现整体增长趋势，根据之前对会议统计结果，
 					可以发现这种现象与计算机视觉的国际会议有关,此类会议的隔年举办导致周期性波动，但AAAI，IJCAI等综合类会议中的计算机视觉方向论文数量抵消了部分影响，
-					在2019年，计算机视觉成为论文发表最多的方向。。
+					在2019年，计算机视觉成为论文发表最多的方向。
 					机器人方向于1990年就处于领先地位，2007年被计算机视觉首次超越。
 					智能体和知识表示一直处于低占比低增长的态势。
 					</p>
@@ -1580,7 +1580,7 @@
 					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1.算法扫描数据中的所有节点，针对每个节点遍历该节点的所有邻居节点，衡量把该节点加入其邻居节点所在的社区所带来的模块度的收益。并选择对应最大收益的邻居节点，加入其所在的社区。这一过程化重复进行指导每一个节点的社区归属都不在发生变化。<br>
 					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2.对步骤1中形成的社区进行折叠，把每个社区折叠成一个单点，分别计算这些新生成的“社区点”之间的连边权重，以及社区内的所有点之间的连边权重之和。用于下一轮的步骤1。
 				</p>
-				<p>本小节的划分结果通过绘制关系图呈现，在所有关系图中，某关键词在当前时间段被使用次数越多，该节点越大；同时使用某两个关键词的论文数量越多，连接这两个关键词的边越宽。不同生态链的关键词使用不同颜色区分。使用弹性布局,某节点与其他节点联系程序越小，则节点偏离程度越大。有关分析结果如下：</p>
+				<p>本小节的划分结果通过绘制关系图呈现，在所有关系图中，某关键词在当前时间段被使用次数越多，该节点越大；连接两个关键词的边的值为同时使用某两个关键词的论文数量。不同生态链的关键词使用不同颜色区分。使用弹性布局,某节点与其他节点联系程序越小，则节点偏离程度越大。有关分析结果如下：</p>
 			</div>
 		</div>
 	</div>
@@ -1591,7 +1591,284 @@
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >1990年至1994年，热点主要在机器人和计算机视觉方面，此时，和机器人有关的论文主要围绕运动控制学，路径规划，位置控制，平稳性，实时等技术进行讨论。和计算机视觉有关的论文主要围绕图像分割，对象识别，导航，鲁棒性，计算几何学等技术进行讨论。</p>
 
-<img src="images/1.jpg">
+				<div class="col-lg-6" style="height: 500px;" id="echarts-diyijieduan" >
+
+				</div>
+				<script>
+					var diyijieduan= echarts.init(document.getElementById('echarts-diyijieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 800, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+{name:'knowledge base',value:108,symbolSize:21,itemStyle:{color:'#FFFF00'},},
+{name:'artificial intelligence',value:143,symbolSize:28,itemStyle:{color:'#551abb'},},
+{name:'computer science',value:165,symbolSize:33,itemStyle:{color:'#551abb'},},
+{name:'natural language',value:99,symbolSize:19,itemStyle:{color:'#FFFF00'},},
+{name:'navigation',value:124,symbolSize:24,itemStyle:{color:'#551abb'},},
+{name:'computer vision',value:452,symbolSize:90,itemStyle:{color:'#551abb'},},
+{name:'shape',value:141,symbolSize:28,itemStyle:{color:'#551abb'},},
+{name:'image segmentation',value:119,symbolSize:23,itemStyle:{color:'#551abb'},},
+{name:'robustness',value:112,symbolSize:22,itemStyle:{color:'#551abb'},},
+{name:'robot kinematics',value:171,symbolSize:34,itemStyle:{color:'#4F94CD'},},
+{name:'computational geometry',value:114,symbolSize:22,itemStyle:{color:'#551abb'},},
+{name:'object recognition',value:107,symbolSize:21,itemStyle:{color:'#551abb'},},
+{name:'real time',value:113,symbolSize:22,itemStyle:{color:'#4F94CD'},},
+{name:'motion control',value:139,symbolSize:27,itemStyle:{color:'#4F94CD'},},
+{name:'motion planning',value:119,symbolSize:23,itemStyle:{color:'#4F94CD'},},
+{name:'stability',value:137,symbolSize:27,itemStyle:{color:'#4F94CD'},},
+{name:'position control',value:132,symbolSize:26,itemStyle:{color:'#4F94CD'},},
+{name:'feedback',value:106,symbolSize:21,itemStyle:{color:'#4F94CD'},},
+{name:'kinematics',value:210,symbolSize:42,itemStyle:{color:'#4F94CD'},},
+{name:'robot control',value:165,symbolSize:33,itemStyle:{color:'#4F94CD'},},
+
+				],
+				links: [
+		{source:'knowledge base',target:'artificial intelligence',value:'3',},
+{source:'knowledge base',target:'computer science',value:'2',},
+{source:'natural language',target:'knowledge base',value:'6',},
+{source:'navigation',target:'computer vision',value:'27',},
+{source:'natural language',target:'computer science',value:'1',},
+{source:'computer vision',target:'artificial intelligence',value:'12',},
+{source:'shape',target:'image segmentation',value:'13',},
+{source:'robustness',target:'artificial intelligence',value:'4',},
+{source:'robustness',target:'navigation',value:'6',},
+{source:'robustness',target:'robot kinematics',value:'3',},
+{source:'robustness',target:'computer vision',value:'19',},
+{source:'navigation',target:'artificial intelligence',value:'9',},
+{source:'robot kinematics',target:'artificial intelligence',value:'6',},
+{source:'robot kinematics',target:'navigation',value:'9',},
+{source:'robot kinematics',target:'computer vision',value:'12',},
+{source:'computer vision',target:'computational geometry',value:'22',},
+{source:'object recognition',target:'image segmentation',value:'13',},
+{source:'object recognition',target:'computer science',value:'5',},
+{source:'image segmentation',target:'computational geometry',value:'8',},
+{source:'object recognition',target:'computational geometry',value:'9',},
+{source:'real time',target:'computer vision',value:'16',},
+{source:'robustness',target:'computer science',value:'7',},
+{source:'shape',target:'object recognition',value:'14',},
+{source:'shape',target:'robustness',value:'10',},
+{source:'shape',target:'computational geometry',value:'12',},
+{source:'robustness',target:'computational geometry',value:'4',},
+{source:'object recognition',target:'computer vision',value:'34',},
+{source:'image segmentation',target:'computer science',value:'4',},
+{source:'navigation',target:'motion control',value:'3',},
+{source:'motion control',target:'computer vision',value:'6',},
+{source:'robot kinematics',target:'motion control',value:'14',},
+{source:'computer vision',target:'computer science',value:'24',},
+{source:'shape',target:'computer science',value:'16',},
+{source:'image segmentation',target:'computer vision',value:'38',},
+{source:'navigation',target:'computer science',value:'5',},
+{source:'shape',target:'navigation',value:'3',},
+{source:'object recognition',target:'artificial intelligence',value:'6',},
+{source:'motion planning',target:'computer vision',value:'5',},
+{source:'stability',target:'position control',value:'12',},
+{source:'position control',target:'computer vision',value:'10',},
+{source:'stability',target:'computer vision',value:'2',},
+{source:'robustness',target:'image segmentation',value:'6',},
+{source:'shape',target:'computer vision',value:'33',},
+{source:'robustness',target:'motion control',value:'1',},
+{source:'computer science',target:'computational geometry',value:'12',},
+{source:'stability',target:'object recognition',value:'1',},
+{source:'stability',target:'computational geometry',value:'2',},
+{source:'feedback',target:'computer vision',value:'5',},
+{source:'real time',target:'feedback',value:'3',},
+{source:'real time',target:'computer science',value:'2',},
+{source:'robot kinematics',target:'computer science',value:'10',},
+{source:'real time',target:'artificial intelligence',value:'3',},
+{source:'image segmentation',target:'artificial intelligence',value:'1',},
+{source:'shape',target:'artificial intelligence',value:'3',},
+{source:'stability',target:'image segmentation',value:'2',},
+{source:'robot kinematics',target:'image segmentation',value:'1',},
+{source:'kinematics',target:'computer vision',value:'5',},
+{source:'position control',target:'motion control',value:'16',},
+{source:'position control',target:'navigation',value:'8',},
+{source:'shape',target:'robot control',value:'3',},
+{source:'robot control',target:'computer vision',value:'5',},
+{source:'real time',target:'computational geometry',value:'3',},
+{source:'robustness',target:'object recognition',value:'2',},
+{source:'robot control',target:'navigation',value:'10',},
+{source:'shape',target:'real time',value:'1',},
+{source:'computer science',target:'artificial intelligence',value:'5',},
+{source:'kinematics',target:'artificial intelligence',value:'4',},
+{source:'robustness',target:'real time',value:'2',},
+{source:'natural language',target:'artificial intelligence',value:'1',},
+{source:'motion control',target:'computer science',value:'3',},
+{source:'motion planning',target:'kinematics',value:'14',},
+{source:'position control',target:'feedback',value:'8',},
+{source:'motion planning',target:'computational geometry',value:'11',},
+{source:'position control',target:'kinematics',value:'8',},
+{source:'motion planning',target:'computer science',value:'7',},
+{source:'robot control',target:'kinematics',value:'15',},
+{source:'kinematics',target:'feedback',value:'7',},
+{source:'real time',target:'position control',value:'5',},
+{source:'motion control',target:'feedback',value:'10',},
+{source:'stability',target:'robustness',value:'8',},
+{source:'stability',target:'kinematics',value:'13',},
+{source:'robustness',target:'kinematics',value:'6',},
+{source:'position control',target:'motion planning',value:'8',},
+{source:'real time',target:'motion control',value:'5',},
+{source:'robot kinematics',target:'computational geometry',value:'5',},
+{source:'robot kinematics',target:'motion planning',value:'11',},
+{source:'robot kinematics',target:'kinematics',value:'31',},
+{source:'stability',target:'artificial intelligence',value:'5',},
+{source:'real time',target:'navigation',value:'4',},
+{source:'shape',target:'motion planning',value:'6',},
+{source:'robot kinematics',target:'feedback',value:'6',},
+{source:'stability',target:'robot kinematics',value:'9',},
+{source:'stability',target:'feedback',value:'14',},
+{source:'motion control',target:'kinematics',value:'17',},
+{source:'robot control',target:'real time',value:'14',},
+{source:'robot kinematics',target:'robot control',value:'14',},
+{source:'robot kinematics',target:'real time',value:'5',},
+{source:'stability',target:'motion control',value:'14',},
+{source:'shape',target:'robot kinematics',value:'6',},
+{source:'motion planning',target:'artificial intelligence',value:'3',},
+{source:'stability',target:'motion planning',value:'4',},
+{source:'motion planning',target:'motion control',value:'10',},
+{source:'real time',target:'motion planning',value:'4',},
+{source:'stability',target:'computer science',value:'6',},
+{source:'stability',target:'robot control',value:'19',},
+{source:'robot control',target:'feedback',value:'13',},
+{source:'robustness',target:'robot control',value:'6',},
+{source:'stability',target:'shape',value:'4',},
+{source:'robot control',target:'computer science',value:'4',},
+{source:'robot control',target:'motion planning',value:'5',},
+{source:'kinematics',target:'computational geometry',value:'6',},
+{source:'kinematics',target:'computer science',value:'7',},
+{source:'shape',target:'feedback',value:'1',},
+{source:'stability',target:'real time',value:'2',},
+{source:'navigation',target:'image segmentation',value:'4',},
+{source:'motion planning',target:'feedback',value:'5',},
+{source:'robot control',target:'motion control',value:'11',},
+{source:'navigation',target:'feedback',value:'3',},
+{source:'navigation',target:'motion planning',value:'6',},
+{source:'object recognition',target:'knowledge base',value:'2',},
+{source:'feedback',target:'computer science',value:'3',},
+{source:'robustness',target:'feedback',value:'3',},
+{source:'robot control',target:'computational geometry',value:'4',},
+{source:'navigation',target:'computational geometry',value:'3',},
+{source:'robot control',target:'artificial intelligence',value:'2',},
+{source:'robustness',target:'motion planning',value:'2',},
+{source:'kinematics',target:'image segmentation',value:'1',},
+{source:'object recognition',target:'kinematics',value:'1',},
+{source:'robot control',target:'image segmentation',value:'1',},
+{source:'robot control',target:'object recognition',value:'1',},
+{source:'shape',target:'kinematics',value:'4',},
+{source:'robot control',target:'position control',value:'6',},
+{source:'robustness',target:'position control',value:'2',},
+{source:'feedback',target:'artificial intelligence',value:'2',},
+{source:'stability',target:'navigation',value:'4',},
+{source:'motion control',target:'computational geometry',value:'1',},
+{source:'robot kinematics',target:'position control',value:'1',},
+{source:'shape',target:'position control',value:'2',},
+{source:'position control',target:'computational geometry',value:'1',},
+{source:'computational geometry',target:'artificial intelligence',value:'2',},
+{source:'real time',target:'knowledge base',value:'1',},]
+			}
+		]
+	};
+
+					diyijieduan.setOption(option)
+	
+				</script>
 </div>
 		</div>
 	</div>
@@ -1602,7 +1879,311 @@
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >1995年到1999年，热点仍在机器人和计算机视觉，不同的是，在1990年到1994年和计算视觉有关的导航，实时技术开始向机器人领域偏移，机器人领域也有了机器工程学，遥控机器人等新技术的出现。</p>
 
-<img src="images/2.jpg">
+				<div class="col-lg-6" style="height: 500px;" id="echarts-dierjieduan" >
+
+				</div>
+				<script>
+					var dierjieduan= echarts.init(document.getElementById('echarts-dierjieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 1500, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+				{name:'real time',value:159,symbolSize:31,itemStyle:{color:'#FFFF00'},},
+{name:'computer vision',value:346,symbolSize:69,itemStyle:{color:'#551abb'},},
+{name:'robot control',value:185,symbolSize:37,itemStyle:{color:'#4F94CD'},},
+{name:'stability',value:144,symbolSize:28,itemStyle:{color:'#4F94CD'},},
+{name:'computational geometry',value:159,symbolSize:31,itemStyle:{color:'#551abb'},},
+{name:'satisfiability',value:125,symbolSize:25,itemStyle:{color:'#4F94CD'},},
+{name:'computer science',value:215,symbolSize:43,itemStyle:{color:'#551abb'},},
+{name:'robustness',value:210,symbolSize:42,itemStyle:{color:'#551abb'},},
+{name:'image segmentation',value:140,symbolSize:28,itemStyle:{color:'#551abb'},},
+{name:'shape',value:199,symbolSize:39,itemStyle:{color:'#551abb'},},
+{name:'object recognition',value:135,symbolSize:27,itemStyle:{color:'#551abb'},},
+{name:'robot kinematics',value:268,symbolSize:53,itemStyle:{color:'#4F94CD'},},
+{name:'motion estimation',value:167,symbolSize:33,itemStyle:{color:'#551abb'},},
+{name:'kinematics',value:241,symbolSize:48,itemStyle:{color:'#4F94CD'},},
+{name:'motion control',value:309,symbolSize:61,itemStyle:{color:'#4F94CD'},},
+{name:'navigation',value:187,symbolSize:37,itemStyle:{color:'#FFFF00'},},
+{name:'feedback',value:166,symbolSize:33,itemStyle:{color:'#4F94CD'},},
+{name:'mechanical engineering',value:136,symbolSize:27,itemStyle:{color:'#4F94CD'},},
+{name:'telerobotics',value:126,symbolSize:25,itemStyle:{color:'#4F94CD'},},
+{name:'motion planning',value:139,symbolSize:27,itemStyle:{color:'#4F94CD'},},
+
+
+				],
+				links: [
+				{source:'real time',target:'computer vision',value:'7',},
+{source:'robot control',target:'real time',value:'7',},
+{source:'stability',target:'computational geometry',value:'5',},
+{source:'satisfiability',target:'computer science',value:'3',},
+{source:'satisfiability',target:'computer vision',value:'5',},
+{source:'computer vision',target:'computer science',value:'20',},
+{source:'computer vision',target:'computational geometry',value:'17',},
+{source:'robustness',target:'real time',value:'12',},
+{source:'image segmentation',target:'computer vision',value:'23',},
+{source:'shape',target:'object recognition',value:'13',},
+{source:'object recognition',target:'computer vision',value:'24',},
+{source:'robot kinematics',target:'computer vision',value:'9',},
+{source:'robot kinematics',target:'object recognition',value:'3',},
+{source:'shape',target:'image segmentation',value:'16',},
+{source:'motion estimation',target:'computer vision',value:'24',},
+{source:'shape',target:'computer science',value:'11',},
+{source:'shape',target:'computational geometry',value:'10',},
+{source:'object recognition',target:'image segmentation',value:'14',},
+{source:'robustness',target:'computer vision',value:'22',},
+{source:'robustness',target:'object recognition',value:'14',},
+{source:'object recognition',target:'motion estimation',value:'6',},
+{source:'robustness',target:'computer science',value:'14',},
+{source:'robustness',target:'image segmentation',value:'11',},
+{source:'kinematics',target:'computer vision',value:'3',},
+{source:'robustness',target:'motion estimation',value:'12',},
+{source:'robustness',target:'computational geometry',value:'10',},
+{source:'shape',target:'computer vision',value:'28',},
+{source:'motion estimation',target:'computer science',value:'10',},
+{source:'shape',target:'motion estimation',value:'8',},
+{source:'object recognition',target:'computational geometry',value:'4',},
+{source:'real time',target:'image segmentation',value:'2',},
+{source:'motion estimation',target:'image segmentation',value:'17',},
+{source:'image segmentation',target:'computational geometry',value:'6',},
+{source:'shape',target:'robustness',value:'22',},
+{source:'motion estimation',target:'motion control',value:'6',},
+{source:'motion control',target:'computer vision',value:'8',},
+{source:'robustness',target:'navigation',value:'21',},
+{source:'stability',target:'shape',value:'9',},
+{source:'navigation',target:'motion control',value:'14',},
+{source:'real time',target:'object recognition',value:'3',},
+{source:'image segmentation',target:'computer science',value:'8',},
+{source:'computer science',target:'computational geometry',value:'8',},
+{source:'motion estimation',target:'feedback',value:'2',},
+{source:'robot kinematics',target:'computer science',value:'8',},
+{source:'navigation',target:'motion estimation',value:'7',},
+{source:'satisfiability',target:'robustness',value:'1',},
+{source:'robustness',target:'motion control',value:'12',},
+{source:'motion control',target:'feedback',value:'22',},
+{source:'real time',target:'motion estimation',value:'6',},
+{source:'navigation',target:'computer vision',value:'8',},
+{source:'stability',target:'computer vision',value:'4',},
+{source:'motion estimation',target:'computational geometry',value:'5',},
+{source:'satisfiability',target:'computational geometry',value:'2',},
+{source:'object recognition',target:'navigation',value:'9',},
+{source:'mechanical engineering',target:'computer vision',value:'2',},
+{source:'robustness',target:'mechanical engineering',value:'2',},
+{source:'shape',target:'real time',value:'4',},
+{source:'motion control',target:'mechanical engineering',value:'16',},
+{source:'stability',target:'robustness',value:'7',},
+{source:'object recognition',target:'computer science',value:'3',},
+{source:'robot control',target:'computational geometry',value:'5',},
+{source:'robustness',target:'robot kinematics',value:'13',},
+{source:'motion control',target:'computer science',value:'9',},
+{source:'robot kinematics',target:'kinematics',value:'25',},
+{source:'motion control',target:'kinematics',value:'30',},
+{source:'mechanical engineering',target:'kinematics',value:'28',},
+{source:'stability',target:'motion control',value:'20',},
+{source:'shape',target:'feedback',value:'2',},
+{source:'feedback',target:'computer science',value:'3',},
+{source:'telerobotics',target:'stability',value:'12',},
+{source:'stability',target:'feedback',value:'12',},
+{source:'telerobotics',target:'feedback',value:'11',},
+{source:'stability',target:'computer science',value:'1',},
+{source:'telerobotics',target:'motion control',value:'16',},
+{source:'robot kinematics',target:'motion control',value:'52',},
+{source:'robot kinematics',target:'feedback',value:'23',},
+{source:'motion control',target:'computational geometry',value:'9',},
+{source:'mechanical engineering',target:'computational geometry',value:'9',},
+{source:'motion planning',target:'computer science',value:'4',},
+{source:'kinematics',target:'feedback',value:'13',},
+{source:'robot kinematics',target:'real time',value:'14',},
+{source:'robustness',target:'motion planning',value:'3',},
+{source:'real time',target:'motion planning',value:'6',},
+{source:'robot control',target:'motion control',value:'33',},
+{source:'satisfiability',target:'mechanical engineering',value:'1',},
+{source:'motion planning',target:'motion control',value:'31',},
+{source:'robustness',target:'feedback',value:'6',},
+{source:'stability',target:'robot control',value:'18',},
+{source:'robot kinematics',target:'mechanical engineering',value:'15',},
+{source:'mechanical engineering',target:'feedback',value:'7',},
+{source:'robot kinematics',target:'motion planning',value:'23',},
+{source:'satisfiability',target:'motion control',value:'4',},
+{source:'real time',target:'navigation',value:'13',},
+{source:'navigation',target:'image segmentation',value:'5',},
+{source:'navigation',target:'kinematics',value:'5',},
+{source:'stability',target:'robot kinematics',value:'15',},
+{source:'telerobotics',target:'robot kinematics',value:'6',},
+{source:'stability',target:'motion planning',value:'3',},
+{source:'shape',target:'motion planning',value:'4',},
+{source:'robustness',target:'kinematics',value:'8',},
+{source:'motion planning',target:'computational geometry',value:'12',},
+{source:'telerobotics',target:'kinematics',value:'3',},
+{source:'robot control',target:'object recognition',value:'1',},
+{source:'stability',target:'kinematics',value:'13',},
+{source:'robot control',target:'navigation',value:'8',},
+{source:'navigation',target:'motion planning',value:'17',},
+{source:'motion planning',target:'kinematics',value:'7',},
+{source:'kinematics',target:'computational geometry',value:'16',},
+{source:'feedback',target:'computer vision',value:'3',},
+{source:'shape',target:'kinematics',value:'8',},
+{source:'robot control',target:'kinematics',value:'16',},
+{source:'telerobotics',target:'computer vision',value:'5',},
+{source:'real time',target:'motion control',value:'15',},
+{source:'robot control',target:'mechanical engineering',value:'6',},
+{source:'robot kinematics',target:'navigation',value:'19',},
+{source:'robot kinematics',target:'robot control',value:'28',},
+{source:'navigation',target:'feedback',value:'4',},
+{source:'stability',target:'object recognition',value:'1',},
+{source:'stability',target:'mechanical engineering',value:'10',},
+{source:'object recognition',target:'mechanical engineering',value:'4',},
+{source:'robot control',target:'computer science',value:'6',},
+{source:'kinematics',target:'computer science',value:'9',},
+{source:'kinematics',target:'image segmentation',value:'1',},
+{source:'motion estimation',target:'kinematics',value:'2',},
+{source:'robot kinematics',target:'motion estimation',value:'5',},
+{source:'satisfiability',target:'motion planning',value:'3',},
+{source:'motion planning',target:'feedback',value:'7',},
+{source:'satisfiability',target:'kinematics',value:'5',},
+{source:'satisfiability',target:'real time',value:'2',},
+{source:'robot control',target:'feedback',value:'17',},
+{source:'shape',target:'motion control',value:'13',},
+{source:'robot kinematics',target:'computational geometry',value:'10',},
+{source:'robustness',target:'robot control',value:'10',},
+{source:'shape',target:'robot control',value:'4',},
+{source:'robot control',target:'computer vision',value:'2',},
+{source:'real time',target:'feedback',value:'4',},
+{source:'telerobotics',target:'image segmentation',value:'1',},
+{source:'telerobotics',target:'computer science',value:'1',},
+{source:'telerobotics',target:'robot control',value:'9',},
+{source:'motion estimation',target:'mechanical engineering',value:'2',},
+{source:'real time',target:'kinematics',value:'3',},
+{source:'object recognition',target:'motion control',value:'3',},
+{source:'telerobotics',target:'real time',value:'4',},
+{source:'motion planning',target:'motion estimation',value:'1',},
+{source:'object recognition',target:'motion planning',value:'2',},
+{source:'satisfiability',target:'robot kinematics',value:'7',},
+{source:'shape',target:'navigation',value:'2',},
+{source:'image segmentation',target:'feedback',value:'1',},
+{source:'shape',target:'robot kinematics',value:'6',},
+{source:'satisfiability',target:'navigation',value:'2',},
+{source:'real time',target:'computer science',value:'2',},
+{source:'mechanical engineering',target:'image segmentation',value:'1',},
+{source:'telerobotics',target:'robustness',value:'1',},
+{source:'motion planning',target:'mechanical engineering',value:'5',},
+{source:'robot control',target:'motion estimation',value:'2',},
+{source:'robot control',target:'motion planning',value:'3',},
+{source:'satisfiability',target:'robot control',value:'1',},
+{source:'shape',target:'mechanical engineering',value:'5',},
+{source:'telerobotics',target:'motion planning',value:'2',},
+{source:'navigation',target:'computer science',value:'5',},
+{source:'telerobotics',target:'mechanical engineering',value:'2',},
+{source:'telerobotics',target:'navigation',value:'2',},
+{source:'navigation',target:'computational geometry',value:'1',},
+{source:'satisfiability',target:'feedback',value:'2',},
+{source:'stability',target:'navigation',value:'2',},
+{source:'real time',target:'mechanical engineering',value:'1',},
+{source:'navigation',target:'mechanical engineering',value:'1',},]
+			}
+		]
+	};
+
+	dierjieduan.setOption(option)
+	
+				</script>
 </div>
 		</div>
 	</div>
@@ -1612,8 +2193,297 @@
 		<div class="line mt-lg-5 mt-4" >
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >2000到2004年，在机器人方向，相关技术没有太大变化。和计算机视觉有关的论文开始围绕追踪等技术进行讨论。支持向量机，强化学习等机器学习技术已开始被广泛讨论。</p>
+				<div class="col-lg-6" style="height: 500px;" id="echarts-disanjieduan" >
 
-<img src="images/3.jpg">
+				</div>
+				<script>
+					var disanjieduan= echarts.init(document.getElementById('echarts-disanjieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 1000, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+				{name:'real time',value:209,symbolSize:41,itemStyle:{color:'#FFFF00'},},
+{name:'machine learning',value:192,symbolSize:38,itemStyle:{color:'#FFFF00'},},
+{name:'computer vision',value:294,symbolSize:58,itemStyle:{color:'#551abb'},},
+{name:'reinforcement learning',value:203,symbolSize:40,itemStyle:{color:'#FFFF00'},},
+{name:'computational complexity',value:147,symbolSize:29,itemStyle:{color:'#551abb'},},
+{name:'satisfiability',value:155,symbolSize:31,itemStyle:{color:'#4F94CD'},},
+{name:'robustness',value:130,symbolSize:26,itemStyle:{color:'#551abb'},},
+{name:'computer science',value:241,symbolSize:48,itemStyle:{color:'#551abb'},},
+{name:'feedback',value:178,symbolSize:35,itemStyle:{color:'#4F94CD'},},
+{name:'robot kinematics',value:324,symbolSize:64,itemStyle:{color:'#4F94CD'},},
+{name:'stability',value:181,symbolSize:36,itemStyle:{color:'#4F94CD'},},
+{name:'robot control',value:152,symbolSize:30,itemStyle:{color:'#4F94CD'},},
+{name:'kinematics',value:196,symbolSize:39,itemStyle:{color:'#4F94CD'},},
+{name:'support vector machine',value:135,symbolSize:27,itemStyle:{color:'#FFFF00'},},
+{name:'navigation',value:214,symbolSize:42,itemStyle:{color:'#FFFF00'},},
+{name:'tracking',value:144,symbolSize:28,itemStyle:{color:'#551abb'},},
+{name:'position control',value:183,symbolSize:36,itemStyle:{color:'#4F94CD'},},
+{name:'telerobotics',value:207,symbolSize:41,itemStyle:{color:'#4F94CD'},},
+{name:'motion planning',value:194,symbolSize:38,itemStyle:{color:'#4F94CD'},},
+{name:'motion control',value:427,symbolSize:85,itemStyle:{color:'#4F94CD'},},
+
+
+				],
+				links: [
+				{source:'real time',target:'machine learning',value:'5',},
+{source:'machine learning',target:'computer vision',value:'1',},
+{source:'reinforcement learning',target:'machine learning',value:'9',},
+{source:'reinforcement learning',target:'real time',value:'7',},
+{source:'computer vision',target:'computational complexity',value:'7',},
+{source:'satisfiability',target:'computational complexity',value:'4',},
+{source:'robustness',target:'computer science',value:'7',},
+{source:'machine learning',target:'computer science',value:'3',},
+{source:'computer science',target:'computational complexity',value:'8',},
+{source:'satisfiability',target:'feedback',value:'5',},
+{source:'satisfiability',target:'computer science',value:'5',},
+{source:'satisfiability',target:'real time',value:'4',},
+{source:'robot kinematics',target:'computer science',value:'12',},
+{source:'reinforcement learning',target:'computer science',value:'2',},
+{source:'stability',target:'reinforcement learning',value:'1',},
+{source:'stability',target:'computer science',value:'1',},
+{source:'robot control',target:'kinematics',value:'14',},
+{source:'robot kinematics',target:'reinforcement learning',value:'2',},
+{source:'robustness',target:'reinforcement learning',value:'1',},
+{source:'support vector machine',target:'machine learning',value:'9',},
+{source:'support vector machine',target:'satisfiability',value:'2',},
+{source:'machine learning',target:'computational complexity',value:'1',},
+{source:'robustness',target:'computational complexity',value:'2',},
+{source:'computer vision',target:'computer science',value:'15',},
+{source:'stability',target:'robustness',value:'11',},
+{source:'real time',target:'navigation',value:'11',},
+{source:'robustness',target:'real time',value:'4',},
+{source:'robustness',target:'navigation',value:'7',},
+{source:'navigation',target:'computer vision',value:'4',},
+{source:'robustness',target:'computer vision',value:'9',},
+{source:'tracking',target:'computer vision',value:'24',},
+{source:'tracking',target:'computational complexity',value:'2',},
+{source:'real time',target:'computer vision',value:'8',},
+{source:'satisfiability',target:'computer vision',value:'1',},
+{source:'real time',target:'computer science',value:'5',},
+{source:'tracking',target:'satisfiability',value:'1',},
+{source:'robot control',target:'reinforcement learning',value:'2',},
+{source:'robot control',target:'real time',value:'9',},
+{source:'satisfiability',target:'machine learning',value:'1',},
+{source:'support vector machine',target:'reinforcement learning',value:'1',},
+{source:'tracking',target:'robot control',value:'3',},
+{source:'robot control',target:'position control',value:'6',},
+{source:'tracking',target:'position control',value:'7',},
+{source:'robot kinematics',target:'kinematics',value:'27',},
+{source:'navigation',target:'computer science',value:'6',},
+{source:'tracking',target:'navigation',value:'3',},
+{source:'tracking',target:'computer science',value:'3',},
+{source:'tracking',target:'telerobotics',value:'4',},
+{source:'tracking',target:'feedback',value:'11',},
+{source:'telerobotics',target:'computer vision',value:'5',},
+{source:'feedback',target:'computer vision',value:'5',},
+{source:'telerobotics',target:'feedback',value:'6',},
+{source:'robot kinematics',target:'motion planning',value:'21',},
+{source:'telerobotics',target:'position control',value:'10',},
+{source:'satisfiability',target:'motion control',value:'8',},
+{source:'position control',target:'motion control',value:'27',},
+{source:'robot kinematics',target:'motion control',value:'45',},
+{source:'stability',target:'navigation',value:'6',},
+{source:'tracking',target:'stability',value:'4',},
+{source:'stability',target:'position control',value:'5',},
+{source:'support vector machine',target:'motion control',value:'1',},
+{source:'robustness',target:'motion planning',value:'1',},
+{source:'motion planning',target:'computational complexity',value:'5',},
+{source:'tracking',target:'motion control',value:'14',},
+{source:'stability',target:'feedback',value:'16',},
+{source:'position control',target:'feedback',value:'9',},
+{source:'motion control',target:'kinematics',value:'18',},
+{source:'robot kinematics',target:'robot control',value:'26',},
+{source:'stability',target:'computer vision',value:'3',},
+{source:'robot control',target:'feedback',value:'6',},
+{source:'real time',target:'motion control',value:'18',},
+{source:'telerobotics',target:'robot control',value:'9',},
+{source:'kinematics',target:'feedback',value:'10',},
+{source:'motion control',target:'computer science',value:'6',},
+{source:'robustness',target:'robot control',value:'3',},
+{source:'robustness',target:'position control',value:'4',},
+{source:'navigation',target:'machine learning',value:'2',},
+{source:'robot kinematics',target:'navigation',value:'13',},
+{source:'reinforcement learning',target:'navigation',value:'4',},
+{source:'robot kinematics',target:'machine learning',value:'1',},
+{source:'robot kinematics',target:'real time',value:'5',},
+{source:'telerobotics',target:'motion control',value:'16',},
+{source:'motion planning',target:'computer science',value:'7',},
+{source:'position control',target:'navigation',value:'10',},
+{source:'robot kinematics',target:'feedback',value:'11',},
+{source:'robustness',target:'robot kinematics',value:'10',},
+{source:'motion control',target:'feedback',value:'24',},
+{source:'robot kinematics',target:'computational complexity',value:'3',},
+{source:'kinematics',target:'computer science',value:'7',},
+{source:'robot kinematics',target:'position control',value:'5',},
+{source:'real time',target:'motion planning',value:'9',},
+{source:'motion planning',target:'motion control',value:'31',},
+{source:'robot control',target:'motion control',value:'21',},
+{source:'telerobotics',target:'satisfiability',value:'3',},
+{source:'navigation',target:'kinematics',value:'2',},
+{source:'navigation',target:'feedback',value:'5',},
+{source:'satisfiability',target:'motion planning',value:'2',},
+{source:'position control',target:'computer vision',value:'3',},
+{source:'real time',target:'computational complexity',value:'1',},
+{source:'navigation',target:'computational complexity',value:'4',},
+{source:'tracking',target:'robot kinematics',value:'5',},
+{source:'stability',target:'motion control',value:'26',},
+{source:'robustness',target:'feedback',value:'2',},
+{source:'navigation',target:'motion control',value:'9',},
+{source:'telerobotics',target:'robustness',value:'2',},
+{source:'tracking',target:'motion planning',value:'3',},
+{source:'telerobotics',target:'real time',value:'4',},
+{source:'motion planning',target:'feedback',value:'9',},
+{source:'tracking',target:'robustness',value:'6',},
+{source:'motion planning',target:'kinematics',value:'10',},
+{source:'stability',target:'motion planning',value:'10',},
+{source:'stability',target:'kinematics',value:'11',},
+{source:'robot control',target:'navigation',value:'6',},
+{source:'robot kinematics',target:'computer vision',value:'5',},
+{source:'satisfiability',target:'position control',value:'2',},
+{source:'satisfiability',target:'robot kinematics',value:'4',},
+{source:'stability',target:'robot kinematics',value:'17',},
+{source:'telerobotics',target:'kinematics',value:'3',},
+{source:'motion control',target:'computer vision',value:'9',},
+{source:'stability',target:'robot control',value:'8',},
+{source:'navigation',target:'motion planning',value:'9',},
+{source:'real time',target:'feedback',value:'2',},
+{source:'position control',target:'kinematics',value:'5',},
+{source:'stability',target:'real time',value:'3',},
+{source:'telerobotics',target:'robot kinematics',value:'5',},
+{source:'motion control',target:'computational complexity',value:'2',},
+{source:'robustness',target:'motion control',value:'2',},
+{source:'tracking',target:'real time',value:'4',},
+{source:'robustness',target:'kinematics',value:'3',},
+{source:'robot control',target:'motion planning',value:'5',},
+{source:'robot control',target:'computer vision',value:'1',},
+{source:'position control',target:'motion planning',value:'5',},
+{source:'robot control',target:'computer science',value:'9',},
+{source:'tracking',target:'kinematics',value:'3',},
+{source:'real time',target:'kinematics',value:'4',},
+{source:'kinematics',target:'computer vision',value:'2',},
+{source:'tracking',target:'reinforcement learning',value:'1',},
+{source:'telerobotics',target:'navigation',value:'2',},
+{source:'motion planning',target:'computer vision',value:'3',},
+{source:'telerobotics',target:'stability',value:'6',},
+{source:'position control',target:'computer science',value:'2',},
+{source:'kinematics',target:'computational complexity',value:'1',},
+{source:'satisfiability',target:'kinematics',value:'2',},
+{source:'telerobotics',target:'support vector machine',value:'1',},
+{source:'telerobotics',target:'motion planning',value:'1',},
+{source:'telerobotics',target:'computational complexity',value:'1',},
+{source:'support vector machine',target:'computer science',value:'1',},
+{source:'stability',target:'satisfiability',value:'1',},
+{source:'satisfiability',target:'reinforcement learning',value:'1',},
+{source:'reinforcement learning',target:'feedback',value:'1',},
+{source:'support vector machine',target:'computer vision',value:'1',},
+{source:'real time',target:'position control',value:'1',},
+{source:'position control',target:'computational complexity',value:'2',},]
+			}
+		]
+	};
+
+	disanjieduan.setOption(option)
+	
+				</script>
 </div>
 		</div>
 	</div>
@@ -1623,8 +2493,311 @@
 		<div class="line mt-lg-5 mt-4" >
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >2005年到2009年， 和计算机视觉相关的论文关于图像重构和图像分类技术的讨论增多。数据挖掘技术已经被广泛讨论，并和计算机视觉方向的论文有较为紧密的联系。</p>
-			
-				<img src="images/4.jpg">
+				<div class="col-lg-6" style="height: 500px;" id="echarts-disijieduan" >
+
+				</div>
+				<script>
+					var disijieduan= echarts.init(document.getElementById('echarts-disijieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 1000, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+				{name:'shape',value:259,symbolSize:51,itemStyle:{color:'#FFFF00'},},
+{name:'kinematics',value:206,symbolSize:41,itemStyle:{color:'#551abb'},},
+{name:'computer science',value:208,symbolSize:41,itemStyle:{color:'#FFFF00'},},
+{name:'robustness',value:301,symbolSize:60,itemStyle:{color:'#FFFF00'},},
+{name:'robot kinematics',value:347,symbolSize:69,itemStyle:{color:'#551abb'},},
+{name:'motion control',value:329,symbolSize:65,itemStyle:{color:'#551abb'},},
+{name:'real time',value:264,symbolSize:52,itemStyle:{color:'#551abb'},},
+{name:'navigation',value:226,symbolSize:45,itemStyle:{color:'#551abb'},},
+{name:'satisfiability',value:204,symbolSize:40,itemStyle:{color:'#551abb'},},
+{name:'proposed method',value:231,symbolSize:46,itemStyle:{color:'#FFFF00'},},
+{name:'computer vision',value:449,symbolSize:89,itemStyle:{color:'#FFFF00'},},
+{name:'pixel',value:182,symbolSize:36,itemStyle:{color:'#FFFF00'},},
+{name:'image segmentation',value:279,symbolSize:55,itemStyle:{color:'#FFFF00'},},
+{name:'feature extraction',value:343,symbolSize:68,itemStyle:{color:'#FFFF00'},},
+{name:'image reconstruction',value:198,symbolSize:39,itemStyle:{color:'#FFFF00'},},
+{name:'reinforcement learning',value:187,symbolSize:37,itemStyle:{color:'#551abb'},},
+{name:'machine learning',value:311,symbolSize:62,itemStyle:{color:'#FFFF00'},},
+{name:'data mining',value:202,symbolSize:40,itemStyle:{color:'#FFFF00'},},
+{name:'object recognition',value:181,symbolSize:36,itemStyle:{color:'#FFFF00'},},
+{name:'image classification',value:180,symbolSize:36,itemStyle:{color:'#FFFF00'},},
+
+
+
+				],
+				links: [
+				{source:'shape',target:'kinematics',value:'8',},
+{source:'kinematics',target:'computer science',value:'3',},
+{source:'robustness',target:'kinematics',value:'5',},
+{source:'robot kinematics',target:'motion control',value:'43',},
+{source:'real time',target:'navigation',value:'17',},
+{source:'real time',target:'kinematics',value:'3',},
+{source:'satisfiability',target:'robot kinematics',value:'6',},
+{source:'motion control',target:'kinematics',value:'25',},
+{source:'proposed method',target:'motion control',value:'5',},
+{source:'navigation',target:'computer vision',value:'10',},
+{source:'robot kinematics',target:'proposed method',value:'3',},
+{source:'shape',target:'robot kinematics',value:'8',},
+{source:'pixel',target:'image segmentation',value:'30',},
+{source:'robustness',target:'feature extraction',value:'15',},
+{source:'robustness',target:'pixel',value:'22',},
+{source:'feature extraction',target:'computer science',value:'12',},
+{source:'proposed method',target:'computer science',value:'4',},
+{source:'proposed method',target:'feature extraction',value:'13',},
+{source:'shape',target:'pixel',value:'15',},
+{source:'shape',target:'robustness',value:'16',},
+{source:'feature extraction',target:'computer vision',value:'43',},
+{source:'shape',target:'image reconstruction',value:'13',},
+{source:'pixel',target:'image reconstruction',value:'16',},
+{source:'image reconstruction',target:'feature extraction',value:'8',},
+{source:'robustness',target:'computer vision',value:'24',},
+{source:'shape',target:'computer vision',value:'24',},
+{source:'proposed method',target:'image reconstruction',value:'4',},
+{source:'reinforcement learning',target:'machine learning',value:'6',},
+{source:'proposed method',target:'machine learning',value:'4',},
+{source:'real time',target:'machine learning',value:'5',},
+{source:'real time',target:'data mining',value:'4',},
+{source:'machine learning',target:'computer vision',value:'6',},
+{source:'machine learning',target:'data mining',value:'9',},
+{source:'reinforcement learning',target:'real time',value:'1',},
+{source:'object recognition',target:'computer vision',value:'25',},
+{source:'reinforcement learning',target:'proposed method',value:'1',},
+{source:'satisfiability',target:'real time',value:'1',},
+{source:'robustness',target:'robot kinematics',value:'15',},
+{source:'image classification',target:'data mining',value:'5',},
+{source:'pixel',target:'computer vision',value:'29',},
+{source:'pixel',target:'object recognition',value:'7',},
+{source:'robustness',target:'image segmentation',value:'11',},
+{source:'navigation',target:'computer science',value:'12',},
+{source:'real time',target:'computer science',value:'6',},
+{source:'navigation',target:'image segmentation',value:'7',},
+{source:'image segmentation',target:'data mining',value:'11',},
+{source:'navigation',target:'data mining',value:'9',},
+{source:'image classification',target:'feature extraction',value:'30',},
+{source:'robustness',target:'data mining',value:'15',},
+{source:'shape',target:'object recognition',value:'13',},
+{source:'shape',target:'image segmentation',value:'20',},
+{source:'object recognition',target:'image segmentation',value:'16',},
+{source:'proposed method',target:'pixel',value:'4',},
+{source:'image segmentation',target:'feature extraction',value:'20',},
+{source:'object recognition',target:'feature extraction',value:'26',},
+{source:'robot kinematics',target:'object recognition',value:'2',},
+{source:'object recognition',target:'image reconstruction',value:'3',},
+{source:'robot kinematics',target:'image reconstruction',value:'3',},
+{source:'pixel',target:'machine learning',value:'6',},
+{source:'object recognition',target:'machine learning',value:'4',},
+{source:'machine learning',target:'image reconstruction',value:'2',},
+{source:'image reconstruction',target:'computer vision',value:'20',},
+{source:'pixel',target:'feature extraction',value:'10',},
+{source:'image segmentation',target:'computer vision',value:'27',},
+{source:'satisfiability',target:'computer vision',value:'2',},
+{source:'robustness',target:'object recognition',value:'6',},
+{source:'real time',target:'pixel',value:'4',},
+{source:'shape',target:'feature extraction',value:'14',},
+{source:'image classification',target:'computer vision',value:'13',},
+{source:'proposed method',target:'data mining',value:'4',},
+{source:'shape',target:'data mining',value:'14',},
+{source:'shape',target:'proposed method',value:'2',},
+{source:'data mining',target:'computer science',value:'9',},
+{source:'image segmentation',target:'computer science',value:'3',},
+{source:'shape',target:'computer science',value:'12',},
+{source:'image segmentation',target:'image reconstruction',value:'9',},
+{source:'machine learning',target:'image classification',value:'3',},
+{source:'robustness',target:'image classification',value:'10',},
+{source:'robustness',target:'image reconstruction',value:'16',},
+{source:'shape',target:'image classification',value:'10',},
+{source:'real time',target:'image classification',value:'4',},
+{source:'robustness',target:'real time',value:'11',},
+{source:'satisfiability',target:'robustness',value:'2',},
+{source:'satisfiability',target:'image reconstruction',value:'2',},
+{source:'feature extraction',target:'data mining',value:'20',},
+{source:'image reconstruction',target:'data mining',value:'2',},
+{source:'image classification',target:'computer science',value:'5',},
+{source:'object recognition',target:'computer science',value:'6',},
+{source:'satisfiability',target:'computer science',value:'2',},
+{source:'machine learning',target:'feature extraction',value:'3',},
+{source:'robustness',target:'machine learning',value:'3',},
+{source:'proposed method',target:'computer vision',value:'10',},
+{source:'pixel',target:'image classification',value:'5',},
+{source:'pixel',target:'computer science',value:'2',},
+{source:'image reconstruction',target:'computer science',value:'4',},
+{source:'proposed method',target:'image classification',value:'3',},
+{source:'real time',target:'motion control',value:'8',},
+{source:'real time',target:'computer vision',value:'9',},
+{source:'machine learning',target:'computer science',value:'5',},
+{source:'computer vision',target:'computer science',value:'9',},
+{source:'pixel',target:'data mining',value:'7',},
+{source:'object recognition',target:'image classification',value:'17',},
+{source:'image reconstruction',target:'image classification',value:'4',},
+{source:'navigation',target:'image reconstruction',value:'5',},
+{source:'machine learning',target:'image segmentation',value:'3',},
+{source:'navigation',target:'feature extraction',value:'9',},
+{source:'real time',target:'image segmentation',value:'4',},
+{source:'data mining',target:'computer vision',value:'10',},
+{source:'robustness',target:'computer science',value:'8',},
+{source:'image segmentation',target:'image classification',value:'14',},
+{source:'real time',target:'feature extraction',value:'15',},
+{source:'kinematics',target:'image segmentation',value:'1',},
+{source:'pixel',target:'navigation',value:'1',},
+{source:'shape',target:'satisfiability',value:'3',},
+{source:'robustness',target:'proposed method',value:'4',},
+{source:'object recognition',target:'data mining',value:'3',},
+{source:'satisfiability',target:'image segmentation',value:'1',},
+{source:'proposed method',target:'image segmentation',value:'5',},
+{source:'real time',target:'image reconstruction',value:'2',},
+{source:'real time',target:'proposed method',value:'2',},
+{source:'kinematics',target:'computer vision',value:'4',},
+{source:'shape',target:'machine learning',value:'1',},
+{source:'satisfiability',target:'reinforcement learning',value:'2',},
+{source:'satisfiability',target:'feature extraction',value:'1',},
+{source:'robustness',target:'navigation',value:'19',},
+{source:'satisfiability',target:'kinematics',value:'7',},
+{source:'navigation',target:'motion control',value:'22',},
+{source:'reinforcement learning',target:'motion control',value:'4',},
+{source:'robot kinematics',target:'reinforcement learning',value:'3',},
+{source:'object recognition',target:'motion control',value:'1',},
+{source:'robot kinematics',target:'kinematics',value:'32',},
+{source:'motion control',target:'computer science',value:'4',},
+{source:'shape',target:'real time',value:'4',},
+{source:'reinforcement learning',target:'computer science',value:'2',},
+{source:'kinematics',target:'data mining',value:'7',},
+{source:'object recognition',target:'navigation',value:'3',},
+{source:'robot kinematics',target:'real time',value:'10',},
+{source:'robot kinematics',target:'computer science',value:'7',},
+{source:'robot kinematics',target:'navigation',value:'13',},
+{source:'robot kinematics',target:'data mining',value:'6',},
+{source:'motion control',target:'computer vision',value:'2',},
+{source:'navigation',target:'kinematics',value:'5',},
+{source:'robustness',target:'motion control',value:'4',},
+{source:'shape',target:'motion control',value:'9',},
+{source:'shape',target:'navigation',value:'6',},
+{source:'robot kinematics',target:'feature extraction',value:'2',},
+{source:'satisfiability',target:'motion control',value:'5',},
+{source:'proposed method',target:'navigation',value:'3',},
+{source:'reinforcement learning',target:'navigation',value:'1',},
+{source:'motion control',target:'image reconstruction',value:'2',},
+{source:'robot kinematics',target:'computer vision',value:'3',},
+{source:'motion control',target:'data mining',value:'3',},
+{source:'robot kinematics',target:'pixel',value:'1',},
+{source:'motion control',target:'image segmentation',value:'1',},
+{source:'navigation',target:'image classification',value:'2',},
+{source:'real time',target:'object recognition',value:'1',},
+{source:'reinforcement learning',target:'feature extraction',value:'1',},
+{source:'robot kinematics',target:'image segmentation',value:'2',},
+{source:'motion control',target:'feature extraction',value:'1',},
+{source:'machine learning',target:'kinematics',value:'2',},
+{source:'robot kinematics',target:'machine learning',value:'1',},
+{source:'reinforcement learning',target:'kinematics',value:'1',},
+{source:'proposed method',target:'object recognition',value:'1',},
+{source:'satisfiability',target:'data mining',value:'1',},
+{source:'satisfiability',target:'machine learning',value:'1',},
+{source:'reinforcement learning',target:'computer vision',value:'1',},]
+			}
+		]
+	};
+
+	disijieduan.setOption(option)
+	
+				</script>
 	
 </div>
 		</div>
@@ -1636,7 +2809,319 @@
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >2010到2014年，和机器人有关的论文开始进行力控，轨迹，数学模型，优化等技术的热点讨论。和计算机视觉相关的论文开始了对姿态估计等估计技术的热点讨论。</p>
 
-				<img src="images/5.jpg">
+				<div class="col-lg-6" style="height: 500px;" id="echarts-diwujieduan" >
+
+				</div>
+				<script>
+					var diwujieduan= echarts.init(document.getElementById('echarts-diwujieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 1000, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+				{name:'planning',value:232,symbolSize:46,itemStyle:{color:'#FFFF00'},},
+{name:'optimization',value:286,symbolSize:57,itemStyle:{color:'#FFFF00'},},
+{name:'machine learning',value:192,symbolSize:38,itemStyle:{color:'#551abb'},},
+{name:'robustness',value:228,symbolSize:45,itemStyle:{color:'#551abb'},},
+{name:'computer vision',value:426,symbolSize:85,itemStyle:{color:'#551abb'},},
+{name:'image segmentation',value:366,symbolSize:73,itemStyle:{color:'#551abb'},},
+{name:'graph theory',value:181,symbolSize:36,itemStyle:{color:'#551abb'},},
+{name:'pose estimation',value:215,symbolSize:43,itemStyle:{color:'#551abb'},},
+{name:'object recognition',value:222,symbolSize:44,itemStyle:{color:'#551abb'},},
+{name:'estimation',value:246,symbolSize:49,itemStyle:{color:'#551abb'},},
+{name:'shape',value:267,symbolSize:53,itemStyle:{color:'#551abb'},},
+{name:'image classification',value:297,symbolSize:59,itemStyle:{color:'#551abb'},},
+{name:'feature extraction',value:426,symbolSize:85,itemStyle:{color:'#551abb'},},
+{name:'mathematical model',value:291,symbolSize:58,itemStyle:{color:'#FFFF00'},},
+{name:'image reconstruction',value:210,symbolSize:42,itemStyle:{color:'#551abb'},},
+{name:'proposed method',value:296,symbolSize:59,itemStyle:{color:'#551abb'},},
+{name:'trajectory',value:365,symbolSize:73,itemStyle:{color:'#FFFF00'},},
+{name:'force',value:341,symbolSize:68,itemStyle:{color:'#FFFF00'},},
+{name:'motion control',value:319,symbolSize:63,itemStyle:{color:'#FFFF00'},},
+{name:'robot kinematics',value:359,symbolSize:71,itemStyle:{color:'#FFFF00'},},
+
+
+
+				],
+				links: [
+				{source:'planning',target:'optimization',value:'10',},
+{source:'planning',target:'machine learning',value:'1',},
+{source:'optimization',target:'machine learning',value:'3',},
+{source:'robustness',target:'computer vision',value:'16',},
+{source:'image segmentation',target:'graph theory',value:'22',},
+{source:'pose estimation',target:'computer vision',value:'9',},
+{source:'optimization',target:'graph theory',value:'10',},
+{source:'object recognition',target:'computer vision',value:'20',},
+{source:'image segmentation',target:'computer vision',value:'19',},
+{source:'pose estimation',target:'estimation',value:'38',},
+{source:'shape',target:'estimation',value:'8',},
+{source:'image classification',target:'computer vision',value:'27',},
+{source:'image classification',target:'feature extraction',value:'39',},
+{source:'robustness',target:'feature extraction',value:'20',},
+{source:'feature extraction',target:'computer vision',value:'34',},
+{source:'machine learning',target:'feature extraction',value:'4',},
+{source:'mathematical model',target:'image reconstruction',value:'4',},
+{source:'machine learning',target:'image segmentation',value:'1',},
+{source:'optimization',target:'object recognition',value:'4',},
+{source:'robustness',target:'graph theory',value:'11',},
+{source:'image segmentation',target:'estimation',value:'15',},
+{source:'estimation',target:'computer vision',value:'14',},
+{source:'machine learning',target:'computer vision',value:'7',},
+{source:'robustness',target:'optimization',value:'11',},
+{source:'mathematical model',target:'computer vision',value:'10',},
+{source:'object recognition',target:'mathematical model',value:'3',},
+{source:'shape',target:'computer vision',value:'13',},
+{source:'pose estimation',target:'image segmentation',value:'9',},
+{source:'shape',target:'proposed method',value:'7',},
+{source:'robustness',target:'pose estimation',value:'7',},
+{source:'mathematical model',target:'feature extraction',value:'9',},
+{source:'optimization',target:'mathematical model',value:'8',},
+{source:'optimization',target:'feature extraction',value:'12',},
+{source:'proposed method',target:'image reconstruction',value:'5',},
+{source:'robustness',target:'image reconstruction',value:'6',},
+{source:'robustness',target:'proposed method',value:'3',},
+{source:'robustness',target:'image segmentation',value:'18',},
+{source:'image segmentation',target:'feature extraction',value:'32',},
+{source:'object recognition',target:'image classification',value:'27',},
+{source:'object recognition',target:'image segmentation',value:'21',},
+{source:'object recognition',target:'feature extraction',value:'32',},
+{source:'mathematical model',target:'estimation',value:'15',},
+{source:'shape',target:'feature extraction',value:'19',},
+{source:'shape',target:'image segmentation',value:'22',},
+{source:'pose estimation',target:'feature extraction',value:'18',},
+{source:'feature extraction',target:'estimation',value:'19',},
+{source:'trajectory',target:'image reconstruction',value:'5',},
+{source:'image classification',target:'estimation',value:'3',},
+{source:'optimization',target:'estimation',value:'13',},
+{source:'optimization',target:'image classification',value:'9',},
+{source:'shape',target:'pose estimation',value:'8',},
+{source:'proposed method',target:'feature extraction',value:'15',},
+{source:'image reconstruction',target:'feature extraction',value:'18',},
+{source:'mathematical model',target:'graph theory',value:'9',},
+{source:'graph theory',target:'feature extraction',value:'7',},
+{source:'graph theory',target:'computer vision',value:'12',},
+{source:'robustness',target:'image classification',value:'6',},
+{source:'pose estimation',target:'image classification',value:'8',},
+{source:'robustness',target:'estimation',value:'17',},
+{source:'proposed method',target:'image segmentation',value:'7',},
+{source:'proposed method',target:'optimization',value:'9',},
+{source:'mathematical model',target:'image classification',value:'6',},
+{source:'shape',target:'graph theory',value:'5',},
+{source:'image reconstruction',target:'graph theory',value:'6',},
+{source:'shape',target:'image reconstruction',value:'15',},
+{source:'proposed method',target:'pose estimation',value:'5',},
+{source:'image segmentation',target:'image reconstruction',value:'10',},
+{source:'trajectory',target:'computer vision',value:'5',},
+{source:'optimization',target:'computer vision',value:'14',},
+{source:'shape',target:'object recognition',value:'14',},
+{source:'proposed method',target:'estimation',value:'10',},
+{source:'machine learning',target:'graph theory',value:'3',},
+{source:'image reconstruction',target:'image classification',value:'7',},
+{source:'optimization',target:'image reconstruction',value:'7',},
+{source:'trajectory',target:'optimization',value:'30',},
+{source:'mathematical model',target:'image segmentation',value:'5',},
+{source:'object recognition',target:'image reconstruction',value:'3',},
+{source:'image reconstruction',target:'computer vision',value:'13',},
+{source:'image segmentation',target:'image classification',value:'24',},
+{source:'image reconstruction',target:'estimation',value:'8',},
+{source:'proposed method',target:'image classification',value:'7',},
+{source:'shape',target:'machine learning',value:'2',},
+{source:'shape',target:'robustness',value:'14',},
+{source:'robustness',target:'object recognition',value:'4',},
+{source:'trajectory',target:'robustness',value:'13',},
+{source:'proposed method',target:'computer vision',value:'11',},
+{source:'proposed method',target:'mathematical model',value:'5',},
+{source:'pose estimation',target:'image reconstruction',value:'6',},
+{source:'trajectory',target:'object recognition',value:'2',},
+{source:'force',target:'computer vision',value:'3',},
+{source:'image segmentation',target:'force',value:'2',},
+{source:'trajectory',target:'feature extraction',value:'13',},
+{source:'object recognition',target:'graph theory',value:'3',},
+{source:'pose estimation',target:'object recognition',value:'14',},
+{source:'proposed method',target:'object recognition',value:'4',},
+{source:'pose estimation',target:'graph theory',value:'6',},
+{source:'machine learning',target:'image reconstruction',value:'3',},
+{source:'machine learning',target:'image classification',value:'6',},
+{source:'shape',target:'mathematical model',value:'12',},
+{source:'pose estimation',target:'mathematical model',value:'7',},
+{source:'shape',target:'optimization',value:'8',},
+{source:'trajectory',target:'graph theory',value:'8',},
+{source:'shape',target:'image classification',value:'6',},
+{source:'image classification',target:'graph theory',value:'2',},
+{source:'trajectory',target:'proposed method',value:'3',},
+{source:'trajectory',target:'pose estimation',value:'3',},
+{source:'optimization',target:'image segmentation',value:'6',},
+{source:'proposed method',target:'graph theory',value:'6',},
+{source:'robustness',target:'mathematical model',value:'7',},
+{source:'pose estimation',target:'optimization',value:'4',},
+{source:'trajectory',target:'mathematical model',value:'32',},
+{source:'trajectory',target:'force',value:'20',},
+{source:'trajectory',target:'motion control',value:'43',},
+{source:'motion control',target:'force',value:'38',},
+{source:'mathematical model',target:'force',value:'30',},
+{source:'robot kinematics',target:'mathematical model',value:'13',},
+{source:'trajectory',target:'robot kinematics',value:'46',},
+{source:'robot kinematics',target:'motion control',value:'39',},
+{source:'motion control',target:'machine learning',value:'1',},
+{source:'robot kinematics',target:'planning',value:'21',},
+{source:'trajectory',target:'planning',value:'42',},
+{source:'shape',target:'force',value:'16',},
+{source:'motion control',target:'image segmentation',value:'2',},
+{source:'planning',target:'graph theory',value:'13',},
+{source:'planning',target:'image segmentation',value:'2',},
+{source:'robustness',target:'force',value:'7',},
+{source:'mathematical model',target:'machine learning',value:'1',},
+{source:'trajectory',target:'machine learning',value:'3',},
+{source:'optimization',target:'motion control',value:'9',},
+{source:'robot kinematics',target:'optimization',value:'17',},
+{source:'shape',target:'motion control',value:'12',},
+{source:'planning',target:'motion control',value:'13',},
+{source:'shape',target:'planning',value:'4',},
+{source:'pose estimation',target:'motion control',value:'1',},
+{source:'robot kinematics',target:'feature extraction',value:'5',},
+{source:'shape',target:'robot kinematics',value:'12',},
+{source:'trajectory',target:'image segmentation',value:'2',},
+{source:'planning',target:'force',value:'4',},
+{source:'robot kinematics',target:'pose estimation',value:'4',},
+{source:'robot kinematics',target:'estimation',value:'11',},
+{source:'robot kinematics',target:'force',value:'13',},
+{source:'robustness',target:'planning',value:'4',},
+{source:'trajectory',target:'shape',value:'8',},
+{source:'motion control',target:'mathematical model',value:'16',},
+{source:'planning',target:'mathematical model',value:'9',},
+{source:'motion control',target:'estimation',value:'3',},
+{source:'optimization',target:'force',value:'9',},
+{source:'image reconstruction',target:'force',value:'1',},
+{source:'robustness',target:'machine learning',value:'1',},
+{source:'proposed method',target:'motion control',value:'6',},
+{source:'robot kinematics',target:'graph theory',value:'6',},
+{source:'robustness',target:'motion control',value:'4',},
+{source:'planning',target:'estimation',value:'1',},
+{source:'robot kinematics',target:'machine learning',value:'1',},
+{source:'force',target:'estimation',value:'4',},
+{source:'proposed method',target:'planning',value:'1',},
+{source:'robot kinematics',target:'object recognition',value:'2',},
+{source:'object recognition',target:'estimation',value:'3',},
+{source:'motion control',target:'computer vision',value:'1',},
+{source:'robustness',target:'robot kinematics',value:'12',},
+{source:'pose estimation',target:'machine learning',value:'1',},
+{source:'robot kinematics',target:'image reconstruction',value:'1',},
+{source:'machine learning',target:'force',value:'2',},
+{source:'trajectory',target:'image classification',value:'2',},
+{source:'motion control',target:'graph theory',value:'2',},
+{source:'robot kinematics',target:'image classification',value:'1',},
+{source:'planning',target:'feature extraction',value:'1',},
+{source:'trajectory',target:'estimation',value:'2',},
+{source:'motion control',target:'feature extraction',value:'1',},
+{source:'planning',target:'image classification',value:'1',},
+{source:'robot kinematics',target:'computer vision',value:'2',},
+{source:'robot kinematics',target:'proposed method',value:'1',},
+{source:'graph theory',target:'estimation',value:'1',},
+{source:'proposed method',target:'machine learning',value:'1',},]
+			}
+		]
+	};
+
+	diwujieduan.setOption(option)
+	
+				</script>
 </div>
 		</div>
 	</div>
@@ -1646,8 +3131,315 @@
 		<div class="line mt-lg-5 mt-4" >
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
 				<p >2015到2019年AI领域变化非常大，与深度神经网络，循环神经网络，卷积神经网络等神经网络技术的讨论成为热点话题，强化学习，深度学习等机器学习技术的讨论也变得更为广泛和紧密。在这个阶段有大量论文集中在算法研究，这些论文主要在大范围，大数，挑战性难题，新途径，训练集，计算复杂度，更好的表现等方面进行了讨论。</p>
-				
-				<img src="images/6.jpg">
+				<div class="col-lg-6" style="height: 500px;" id="echarts-diliujieduan" >
+
+				</div>
+				<script>
+					var diliujieduan= echarts.init(document.getElementById('echarts-diliujieduan'));
+
+	
+	
+					option = {
+
+tooltip: {
+	show: true, // 默认显示
+	showContent: true, // 是否显示提示框浮层
+	trigger: 'item', // 触发类型，默认数据项触发
+	triggerOn: 'mousemove', // 提示触发条件，mousemove鼠标移至触发，还有click点击触发
+	alwaysShowContent: false, // 默认离开提示框区域隐藏，true为一直显示
+	showDelay: 100, // 浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+	hideDelay: 2000, // 浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+	enterable: false, // 鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+	position: 'right', // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。只在 trigger 为'item'的时候有效。
+	confine: false, // 是否将 tooltip 框限制在图表的区域内。
+	// 外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+	transitionDuration: 0.2, // 提示框浮层的移动动画过渡时间，单位是秒，设置为 0 的时候会紧跟着鼠标移动。
+},
+
+		series: [
+			{
+	type: 'graph', // 关系图
+
+	layout: 'force', // 图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+	legendHoverLink: true, // 是否启用图例 hover(悬停) 时的联动高亮。
+	hoverAnimation: true, // 是否开启鼠标悬停节点的显示动画
+	coordinateSystem: null, // 坐标系可选
+	xAxisIndex: 0, // x轴坐标 有多种坐标系轴坐标选项
+	yAxisIndex: 0, // y轴坐标 
+
+	force: { // 力引导图基本配置
+		// initLayout: , // 力引导的初始化布局，默认使用xy轴的标点
+		repulsion: 1000, // 节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+		gravity: 0.02, // 节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+		edgeLength: 200, // 边的两个节点之间的距离，这个距离也会受 repulsion影响 。值越大则长度越长
+		layoutAnimation: false // 因为力引导布局会在多次迭代后才会稳定，这个参数决定是否显示布局的迭代动画
+		// 在浏览器端节点数据较多（>100）的时候不建议关闭，布局过程会造成浏览器假死。                        
+	},
+	roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启，true 为都开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'
+	nodeScaleRatio: 0.6, // 鼠标漫游缩放时节点的相应缩放比例，当设为0时节点不随着鼠标的缩放而缩放
+	draggable: true, // 节点是否可拖拽，只在使用力引导布局的时候有用。
+	focusNodeAdjacency: true, // 是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+				draggable: true,
+				 edgeSymbol: ['none', 'none'], // 边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。
+	// 默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+	edgeSymbolSize: 10, // 边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
+		// normal 是图形在默认状态下的样式；
+		// emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+		normal: { // 默认样式
+			label: {
+				show: true
+			},
+			borderType: 'solid', // 图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+			borderColor: 'rgba(205, 149, 12, 0.4)', // 设置图形边框为淡金色,透明度为0.4
+			borderWidth: 2, // 图形的描边线宽。为 0 时无描边。
+			opacity: 1 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	lineStyle: { // ========关系边的公用线条样式。
+		normal: {
+			color: 'black',
+			width: '2', //线的粗细
+			type: 'solid', // 线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+			curveness: 0.3, // 线条的曲线程度，从0到1
+			opacity: 0.5 // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	label: { // ========结点图形上的文本标签
+		normal: {
+			show: true, // 是否显示标签。
+			position: 'inside', // 标签的位置。['50%', '50%'] [x,y]
+			textStyle: { // 标签的字体样式
+				color: 'red', // 字体颜色 #cde6c7 #d1c7b7 #d9d6c3 #d3d7d4
+				fontStyle: 'normal', // 文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+				fontWeight: 'bolder', // 'normal'标准，'bold'粗的，'bolder'更粗的，'lighter'更细的，或100 | 200 | 300 | 400...
+				fontFamily: 'sans-serif', // 文字的字体系列
+				fontSize: 12, // 字体大小
+			}
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	edgeLabel: { // ========连接线上的文本标签 
+		normal: {
+			show: false // 不显示连接线上的文字，如果显示只能显示结点的value值，而不是连接线的值
+		},
+		emphasis: { // 高亮状态
+
+		}
+	},
+	
+				data: [
+				{name:'proposed method',value:893,symbolSize:100,itemStyle:{color:'#FFFF00'},},
+{name:'artificial intelligence',value:155,symbolSize:31,itemStyle:{color:'#551abb'},},
+{name:'computer vision',value:313,symbolSize:62,itemStyle:{color:'#4F94CD'},},
+{name:'challenging problem',value:212,symbolSize:42,itemStyle:{color:'#FFFF00'},},
+{name:'proposed algorithm',value:256,symbolSize:51,itemStyle:{color:'#FFFF00'},},
+{name:'machine learning',value:235,symbolSize:47,itemStyle:{color:'#551abb'},},
+{name:'new approach',value:160,symbolSize:32,itemStyle:{color:'#FFFF00'},},
+{name:'wide range',value:221,symbolSize:44,itemStyle:{color:'#FFFF00'},},
+{name:'superior performance',value:208,symbolSize:41,itemStyle:{color:'#FFFF00'},},
+{name:'training data',value:337,symbolSize:67,itemStyle:{color:'#FFFF00'},},
+{name:'deep learning',value:290,symbolSize:58,itemStyle:{color:'#4F94CD'},},
+{name:'convolutional neural network',value:415,symbolSize:83,itemStyle:{color:'#4F94CD'},},
+{name:'recurrent neural network',value:179,symbolSize:35,itemStyle:{color:'#4F94CD'},},
+{name:'proposed model',value:308,symbolSize:61,itemStyle:{color:'#4F94CD'},},
+{name:'large number',value:212,symbolSize:42,itemStyle:{color:'#FFFF00'},},
+{name:'better performance',value:163,symbolSize:32,itemStyle:{color:'#458B74'},},
+{name:'reinforcement learning',value:295,symbolSize:59,itemStyle:{color:'#458B74'},},
+{name:'deep neural network',value:401,symbolSize:80,itemStyle:{color:'#4F94CD'},},
+{name:'computational complexity',value:174,symbolSize:34,itemStyle:{color:'#FFFF00'},},
+{name:'object detection',value:179,symbolSize:35,itemStyle:{color:'#4F94CD'},},
+
+
+
+				],
+				links: [
+				{source:'proposed method',target:'artificial intelligence',value:'4',},
+{source:'computer vision',target:'artificial intelligence',value:'5',},
+{source:'computer vision',target:'challenging problem',value:'10',},
+{source:'proposed algorithm',target:'challenging problem',value:'6',},
+{source:'machine learning',target:'artificial intelligence',value:'11',},
+{source:'proposed algorithm',target:'new approach',value:'2',},
+{source:'wide range',target:'superior performance',value:'3',},
+{source:'superior performance',target:'challenging problem',value:'7',},
+{source:'wide range',target:'challenging problem',value:'8',},
+{source:'superior performance',target:'proposed algorithm',value:'2',},
+{source:'machine learning',target:'computer vision',value:'10',},
+{source:'training data',target:'superior performance',value:'4',},
+{source:'training data',target:'challenging problem',value:'10',},
+{source:'wide range',target:'proposed algorithm',value:'2',},
+{source:'proposed method',target:'proposed algorithm',value:'18',},
+{source:'wide range',target:'proposed method',value:'12',},
+{source:'wide range',target:'deep learning',value:'6',},
+{source:'deep learning',target:'challenging problem',value:'5',},
+{source:'proposed method',target:'challenging problem',value:'18',},
+{source:'wide range',target:'convolutional neural network',value:'4',},
+{source:'wide range',target:'artificial intelligence',value:'2',},
+{source:'recurrent neural network',target:'proposed model',value:'8',},
+{source:'convolutional neural network',target:'challenging problem',value:'7',},
+{source:'proposed method',target:'new approach',value:'6',},
+{source:'new approach',target:'large number',value:'5',},
+{source:'proposed method',target:'better performance',value:'12',},
+{source:'reinforcement learning',target:'proposed algorithm',value:'6',},
+{source:'proposed method',target:'deep neural network',value:'25',},
+{source:'superior performance',target:'proposed model',value:'7',},
+{source:'superior performance',target:'proposed method',value:'20',},
+{source:'proposed model',target:'challenging problem',value:'7',},
+{source:'challenging problem',target:'artificial intelligence',value:'1',},
+{source:'training data',target:'machine learning',value:'7',},
+{source:'new approach',target:'convolutional neural network',value:'3',},
+{source:'training data',target:'new approach',value:'3',},
+{source:'training data',target:'convolutional neural network',value:'10',},
+{source:'deep neural network',target:'convolutional neural network',value:'18',},
+{source:'proposed model',target:'computer vision',value:'7',},
+{source:'deep learning',target:'better performance',value:'2',},
+{source:'recurrent neural network',target:'deep neural network',value:'6',},
+{source:'proposed method',target:'machine learning',value:'5',},
+{source:'wide range',target:'computer vision',value:'7',},
+{source:'proposed model',target:'proposed method',value:'13',},
+{source:'large number',target:'convolutional neural network',value:'4',},
+{source:'superior performance',target:'artificial intelligence',value:'1',},
+{source:'reinforcement learning',target:'computational complexity',value:'2',},
+{source:'proposed method',target:'computer vision',value:'23',},
+{source:'proposed algorithm',target:'large number',value:'4',},
+{source:'training data',target:'proposed model',value:'6',},
+{source:'large number',target:'challenging problem',value:'4',},
+{source:'training data',target:'computer vision',value:'7',},
+{source:'deep neural network',target:'deep learning',value:'21',},
+{source:'training data',target:'deep learning',value:'5',},
+{source:'training data',target:'deep neural network',value:'15',},
+{source:'deep learning',target:'computer vision',value:'12',},
+{source:'reinforcement learning',target:'recurrent neural network',value:'2',},
+{source:'deep neural network',target:'computer vision',value:'18',},
+{source:'proposed method',target:'convolutional neural network',value:'19',},
+{source:'reinforcement learning',target:'proposed method',value:'9',},
+{source:'wide range',target:'proposed model',value:'4',},
+{source:'recurrent neural network',target:'convolutional neural network',value:'11',},
+{source:'training data',target:'large number',value:'8',},
+{source:'superior performance',target:'computer vision',value:'7',},
+{source:'object detection',target:'deep learning',value:'6',},
+{source:'deep neural network',target:'computational complexity',value:'2',},
+{source:'recurrent neural network',target:'proposed method',value:'7',},
+{source:'superior performance',target:'large number',value:'2',},
+{source:'reinforcement learning',target:'large number',value:'4',},
+{source:'training data',target:'proposed method',value:'17',},
+{source:'training data',target:'artificial intelligence',value:'3',},
+{source:'deep neural network',target:'artificial intelligence',value:'3',},
+{source:'wide range',target:'recurrent neural network',value:'2',},
+{source:'proposed model',target:'large number',value:'4',},
+{source:'reinforcement learning',target:'better performance',value:'9',},
+{source:'reinforcement learning',target:'computer vision',value:'2',},
+{source:'wide range',target:'computational complexity',value:'8',},
+{source:'training data',target:'better performance',value:'5',},
+{source:'proposed model',target:'better performance',value:'4',},
+{source:'convolutional neural network',target:'better performance',value:'4',},
+{source:'proposed method',target:'deep learning',value:'9',},
+{source:'object detection',target:'better performance',value:'2',},
+{source:'challenging problem',target:'better performance',value:'3',},
+{source:'proposed model',target:'deep neural network',value:'4',},
+{source:'recurrent neural network',target:'better performance',value:'6',},
+{source:'proposed model',target:'artificial intelligence',value:'2',},
+{source:'recurrent neural network',target:'computer vision',value:'1',},
+{source:'proposed model',target:'convolutional neural network',value:'10',},
+{source:'superior performance',target:'reinforcement learning',value:'2',},
+{source:'deep neural network',target:'better performance',value:'16',},
+{source:'reinforcement learning',target:'deep neural network',value:'5',},
+{source:'proposed method',target:'computational complexity',value:'5',},
+{source:'machine learning',target:'deep neural network',value:'4',},
+{source:'new approach',target:'computational complexity',value:'2',},
+{source:'training data',target:'recurrent neural network',value:'3',},
+{source:'wide range',target:'training data',value:'3',},
+{source:'training data',target:'reinforcement learning',value:'4',},
+{source:'proposed method',target:'large number',value:'13',},
+{source:'computer vision',target:'computational complexity',value:'2',},
+{source:'proposed model',target:'deep learning',value:'7',},
+{source:'large number',target:'deep learning',value:'5',},
+{source:'deep learning',target:'convolutional neural network',value:'14',},
+{source:'object detection',target:'challenging problem',value:'2',},
+{source:'proposed algorithm',target:'convolutional neural network',value:'6',},
+{source:'new approach',target:'challenging problem',value:'3',},
+{source:'proposed method',target:'object detection',value:'10',},
+{source:'superior performance',target:'deep learning',value:'4',},
+{source:'wide range',target:'object detection',value:'3',},
+{source:'object detection',target:'convolutional neural network',value:'7',},
+{source:'reinforcement learning',target:'deep learning',value:'4',},
+{source:'training data',target:'object detection',value:'2',},
+{source:'convolutional neural network',target:'computer vision',value:'15',},
+{source:'superior performance',target:'better performance',value:'1',},
+{source:'superior performance',target:'deep neural network',value:'8',},
+{source:'object detection',target:'large number',value:'2',},
+{source:'large number',target:'computer vision',value:'4',},
+{source:'proposed algorithm',target:'machine learning',value:'4',},
+{source:'proposed algorithm',target:'computer vision',value:'5',},
+{source:'object detection',target:'computer vision',value:'6',},
+{source:'new approach',target:'computer vision',value:'4',},
+{source:'wide range',target:'deep neural network',value:'3',},
+{source:'machine learning',target:'convolutional neural network',value:'1',},
+{source:'deep neural network',target:'challenging problem',value:'3',},
+{source:'proposed algorithm',target:'computational complexity',value:'6',},
+{source:'convolutional neural network',target:'computational complexity',value:'1',},
+{source:'computational complexity',target:'challenging problem',value:'1',},
+{source:'training data',target:'computational complexity',value:'1',},
+{source:'proposed algorithm',target:'better performance',value:'3',},
+{source:'proposed model',target:'object detection',value:'1',},
+{source:'proposed model',target:'computational complexity',value:'2',},
+{source:'proposed algorithm',target:'deep neural network',value:'3',},
+{source:'object detection',target:'deep neural network',value:'5',},
+{source:'wide range',target:'new approach',value:'5',},
+{source:'proposed algorithm',target:'object detection',value:'2',},
+{source:'superior performance',target:'convolutional neural network',value:'7',},
+{source:'proposed model',target:'proposed algorithm',value:'1',},
+{source:'large number',target:'deep neural network',value:'2',},
+{source:'wide range',target:'machine learning',value:'2',},
+{source:'wide range',target:'large number',value:'6',},
+{source:'reinforcement learning',target:'object detection',value:'2',},
+{source:'computational complexity',target:'better performance',value:'2',},
+{source:'wide range',target:'better performance',value:'2',},
+{source:'recurrent neural network',target:'deep learning',value:'3',},
+{source:'new approach',target:'better performance',value:'2',},
+{source:'convolutional neural network',target:'artificial intelligence',value:'1',},
+{source:'computer vision',target:'better performance',value:'2',},
+{source:'superior performance',target:'object detection',value:'3',},
+{source:'object detection',target:'computational complexity',value:'1',},
+{source:'reinforcement learning',target:'convolutional neural network',value:'1',},
+{source:'machine learning',target:'deep learning',value:'4',},
+{source:'machine learning',target:'computational complexity',value:'2',},
+{source:'superior performance',target:'recurrent neural network',value:'2',},
+{source:'reinforcement learning',target:'machine learning',value:'1',},
+{source:'reinforcement learning',target:'artificial intelligence',value:'2',},
+{source:'wide range',target:'reinforcement learning',value:'3',},
+{source:'reinforcement learning',target:'new approach',value:'1',},
+{source:'better performance',target:'artificial intelligence',value:'1',},
+{source:'machine learning',target:'large number',value:'1',},
+{source:'superior performance',target:'new approach',value:'1',},
+{source:'new approach',target:'machine learning',value:'3',},
+{source:'large number',target:'artificial intelligence',value:'1',},
+{source:'recurrent neural network',target:'challenging problem',value:'1',},
+{source:'machine learning',target:'challenging problem',value:'1',},
+{source:'recurrent neural network',target:'new approach',value:'1',},
+{source:'computational complexity',target:'artificial intelligence',value:'1',},
+{source:'new approach',target:'deep learning',value:'1',},
+{source:'machine learning',target:'better performance',value:'1',},
+{source:'training data',target:'proposed algorithm',value:'1',},
+{source:'superior performance',target:'machine learning',value:'2',},
+{source:'proposed algorithm',target:'deep learning',value:'1',},
+{source:'reinforcement learning',target:'proposed model',value:'1',},]
+			}
+		]
+	};
+
+	diliujieduan.setOption(option)
+	
+				</script>
 </div>
 		</div>
 	</div>
