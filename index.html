@@ -49,14 +49,16 @@
             border: 1px solid #cad9ea;
             color: #666;
 			height: 30px;
-			vertical-align:center
+			vertical-align:top
+			
 
-        }
+		}
         table thead th
         {
             background-color: #CCE8EB;
 			width: 100px;
-			vertical-align:center
+			vertical-align:top
+			
         }
         table tr:nth-child(odd)
         {
@@ -174,11 +176,13 @@
 						option = {
 							legend: {type: 'scroll',
 											top:45,},
-							title:{
+							title:[
+								{
 								text:'各大会议论文发表数量及占比',
 								left:'center',
 								
 							},
+							],
 							tooltip: {
 								trigger: 'axis',
 								axisPointer: {
@@ -226,7 +230,7 @@
 							},
 							xAxis: {type: 'category',name:'年份（年）'},
 							yAxis: {gridIndex: 0,name:'数量（篇）'},
-							grid: {width: '70%',left:'5%',top:100,},
+							grid: {width: '50%',left:'5%',top:100,},
 							series: [
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
@@ -235,16 +239,16 @@
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{
-									name: '访问来源',
+									
 									type: 'pie',
 									id: 'pie',
-									center:['90%','55%'],
-									radius: ['25%', '40%'],
+									center:['78%','55%'],
+									radius: ['20%', '35%'],
 									avoidLabelOverlap: false,
 									label: {
-											show: false,
-											position:'center',
-											formatter: '{b}',
+											show: true,
+											position:'outside',
+											formatter: '{b}:{@1990}({d}%)',
 
 										},
 									encode: {
@@ -256,11 +260,8 @@
 										label: {
 											show: true,
 											fontWeight: 'bold',
-											fontSize:30
+											fontSize:15
 										}
-									},
-									labelLine: {
-										show: false
 									},
 
 								}
@@ -275,7 +276,7 @@
 									series: {
 										id: 'pie',
 										label: {
-											formatter: '{b}'
+											formatter: '{b}:{@1990}({d}%)'
 										},
 										encode: {
 											value: dimension,
@@ -300,7 +301,7 @@
 					由于一些会议已经具备鲜明的方向，则可以直接将这些会议的论文划分到对应的方向，
 					使用已有方向的论文训练模型之后对综合类会议的论文进行分类。 各方向的会议如下表所示:
 				</p>
-				<table width="90%" class="table">
+				<table style="width: 60%;" class="table">
 					<thead>
 						<tr>
 							<th>
@@ -442,7 +443,7 @@
 							},
 							xAxis: {type: 'category',name:'年份（年）'},
 							yAxis: {gridIndex: 0,name:'数量（篇）'},
-							grid: {width: '70%',left:'5%',top:100,},
+							grid: {width: '50%',left:'5%',top:100,},
 							series: [
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
@@ -451,16 +452,16 @@
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{
-									name: '访问来源',
+									
 									type: 'pie',
 									id: 'pie',
-									center:['90%','55%'],
-									radius: ['25%', '40%'],
+									center:['78%','55%'],
+									radius: ['20%', '35%'],
 									avoidLabelOverlap: false,
 									label: {
-											show: false,
-											position:'center',
-											formatter: '{b}',
+											show: true,
+											position:'outside',
+											formatter: '{b}:{@1990}({d}%)',
 
 										},
 									encode: {
@@ -472,11 +473,8 @@
 										label: {
 											show: true,
 											fontWeight: 'bold',
-											fontSize:30
+											fontSize:15
 										}
-									},
-									labelLine: {
-										show: false
 									},
 
 								}
@@ -491,7 +489,7 @@
 									series: {
 										id: 'pie',
 										label: {
-											formatter: '{b}'
+											formatter: '{b}:{@1990}({d}%)'
 										},
 										encode: {
 											value: dimension,
@@ -523,18 +521,7 @@
 
 <!-- //banner bottom grids -->
 <!-- banner bottom grids -->
-<section class=" py-5" id="zhongguodingyi"  >
-	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
-		<div class="line mt-lg-5 mt-4" >
-			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
-				
-				<p>本文中国发表的论文指第一作者所属国家及第一作者所在第一单位所属国家皆为中国的论文。</p>
-			</div>
 
-		</div>
-
-	</div>
-</section>
 <div id="lunwenshuliang" class="" style="margin:0 auto;text-align: center;margin-top: 30px;margin-bottom: 0px;width: 100%;background: #1da1f2;padding-top: 30px;padding-bottom: 30px">
 	<h4 style="color: white"> 论文数量分析</h4>
 <!--	<p style="color: white">每个会议录用论文数量、中国主导（第一作者是中国、第一单位是中国）的占比。</p>-->
@@ -547,6 +534,7 @@
 	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
 		<div class="line mt-lg-5 mt-4" >
 			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<p>本文中国发表的论文指第一作者所属国家及第一作者所在第一单位所属国家皆为中国的论文。</p>
 				<p>论文发表数量是测度科研水平的重要指标，本节统计了1990-2019年间中国在各个方向论文发表数量占比。</p>
 				<p >结果显示，在2005年之前，中国在各个方向的论文发表占比相差不大，占比较低且比较平稳，在2005年之后，计算机视觉和自然语言处理开始分离出来，不断走高。
 					机器学习和神经网络方向在2005年有较大幅度增长后呈现平稳趋势，并于2015年之后再次大幅度增长，
@@ -927,6 +915,73 @@
 		</div>
 	</div>
 </section>
+<section class=" py-5" id="about-guoji-top10"  >
+	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
+		<div class="line mt-lg-5 mt-4" >
+
+			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
+				<h4> top10合作国家</h4>
+			</div>
+			<div class="col-lg-6" style="height: 400px;padding-top: 2rem" id="echarts-top10" >
+
+			</div>
+			<script>
+				var top10guojia = echarts.init(document.getElementById('echarts-top10'));
+				option = {
+
+					legend: {
+						orient: 'vertical',
+						right: 70,
+						top:0,
+						data: ['United States','Singapore','Australia','Canada','Japan','United Kingdom','USA','Germany','Italy','France','India'	]
+					},
+					series: [
+						{
+							name: '合作国家',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							avoidLabelOverlap: false,
+							label: {
+								show: true,
+								position: 'outside',
+								formatter: '{b}: {c} ({d}%)'
+							},
+							emphasis: {
+								label: {
+									show: true,
+									fontSize: '20',
+									fontWeight: 'bold',
+									
+								}
+							},
+							labelLine: {
+								show: true
+							},
+							data: [
+								{value: 6124, name: 'United States'},
+								{value: 841, name: 'Singapore'},
+								{value: 699, name: 'Australia'},
+								{value: 539, name: 'Canada'},
+								{value: 490, name: 'Japan'},
+								{value: 487, name: 'United Kingdom'},
+								{value: 484, name: 'Germany'},
+								{value: 253, name: 'Italy'},
+								{value: 225, name: 'France'},
+								{value: 220, name: 'India'}
+							]
+						}
+					]
+				};
+
+
+
+				top10guojia.setOption(option);
+
+			</script>
+		</div>
+
+	</div>
+</section>
 <section class=" py-5" id="about-guoji"  >
 	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
 		<div class="line mt-lg-5 mt-4" >
@@ -991,7 +1046,7 @@
 						xAxis: {type: 'category',name:'年份（年）'},
 						yAxis: {gridIndex: 0,name:'数量（篇）'},
 
-						grid: {width: '65%',left:'5%',top:100,},
+						grid: {width: '50%',left:'5%',top:100,},
 							series: [
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
@@ -1000,16 +1055,16 @@
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{
-									name: '访问来源',
+									
 									type: 'pie',
 									id: 'pie',
-									center:['85%','55%'],
+									center:['78%','55%'],
 									radius: ['20%', '35%'],
 									avoidLabelOverlap: false,
 									label: {
-											show: false,
-											position:'center',
-											formatter: '{b}',
+											show: true,
+											position:'outside',
+											formatter: '{b}:{@1990}({d}%)',
 
 										},
 									encode: {
@@ -1024,9 +1079,6 @@
 											fontSize:15
 										}
 									},
-									labelLine: {
-										show: false
-									},
 
 								}
 							]
@@ -1040,7 +1092,7 @@
 								series: {
 									id: 'pie',
 									label: {
-										formatter: '{b}'
+										formatter: '{b}:{@1990}({d}%)'
 									},
 									encode: {
 										value: dimension,
@@ -1127,7 +1179,7 @@
 						},
 						xAxis: {type: 'category',name:'年份（年）'},
 						yAxis: {gridIndex: 0,name:'数量（篇）'},
-						grid: {width: '65%',left:'5%',top:100,},
+						grid: {width: '50%',left:'5%',top:100,},
 							series: [
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
@@ -1136,16 +1188,16 @@
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{
-									name: '访问来源',
+									
 									type: 'pie',
 									id: 'pie',
-									center:['85%','55%'],
+									center:['78%','55%'],
 									radius: ['20%', '35%'],
 									avoidLabelOverlap: false,
 									label: {
-											show: false,
-											position:'center',
-											formatter: '{b}',
+											show: true,
+											position:'outside',
+											formatter: '{b}:{@1990}({d}%)',
 
 										},
 									encode: {
@@ -1159,9 +1211,6 @@
 											fontWeight: 'bold',
 											fontSize:15
 										}
-									},
-									labelLine: {
-										show: false
 									},
 
 								}
@@ -1197,82 +1246,6 @@
 	</div>
 </section>
 
-<section class=" py-5" id="jieshi6"  >
-	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
-		<div class="line mt-lg-5 mt-4" >
-			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
-	<p>国际合作论文数量前十名分别为美国，新加坡，澳大利亚，加拿大，日本，英国，德国，意大利和法国。</p>
-			</div>
-		</div>
-	</div>
-</section>
-<section class=" py-5" id="about-guoji-top10"  >
-	<div class="container py-md-5 " style="border: #e6e1e1 solid 5px;border-radius: 20px;" >
-		<div class="line mt-lg-5 mt-4" >
-
-			<div class="col-lg-6 cont-inf-w3ls" style="text-align: center">
-				<h4> top10合作国家</h4>
-			</div>
-			<div class="col-lg-6" style="height: 450px;padding-top: 2rem" id="echarts-top10" >
-
-			</div>
-			<script>
-				var top10guojia = echarts.init(document.getElementById('echarts-top10'));
-				option = {
-					tooltip: {
-						trigger: 'item',
-						formatter: '{a} <br/>{b}: {c} ({d}%)'
-					},
-					legend: {
-						type: 'scroll',
-						top: 20,
-						data: ['United States','Singapore','Australia','Canada','Japan','United Kingdom','USA','Germany','Italy','France']
-					},
-					series: [
-						{
-							name: '合作国家',
-							type: 'pie',
-							radius: ['50%', '70%'],
-							avoidLabelOverlap: false,
-							label: {
-								show: false,
-								position: 'center'
-							},
-							emphasis: {
-								label: {
-									show: true,
-									fontSize: '30',
-									fontWeight: 'bold'
-								}
-							},
-							labelLine: {
-								show: false
-							},
-							data: [
-								{value: 6124, name: 'United States'},
-								{value: 841, name: 'Singapore'},
-								{value: 699, name: 'Australia'},
-								{value: 539, name: 'Canada'},
-								{value: 490, name: 'Japan'},
-								{value: 487, name: 'United Kingdom'},
-								{value: 484, name: 'Germany'},
-								{value: 253, name: 'Italy'},
-								{value: 225, name: 'France'},
-								{value: 220, name: 'India'}
-							]
-						}
-					]
-				};
-
-
-
-				top10guojia.setOption(option);
-
-			</script>
-		</div>
-
-	</div>
-</section>
 
 
 <div id="xiaoqilunwen" class="" style="margin:0 auto;text-align: center;margin-top: 30px;margin-bottom: 0px;width: 100%;background: #1da1f2;padding-top: 30px;padding-bottom: 30px">
@@ -1492,25 +1465,22 @@
 						},
 						xAxis: {type: 'category',name:'年份（年）'},
 						yAxis: {gridIndex: 0,name:'比例'},
-						grid: {width: '65%',left:'5%',top:75,},
+						grid: {width: '50%',left:'5%',top:100,},
 							series: [
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
-								{type: 'line', smooth: true, seriesLayoutBy: 'row'},
 								{
-									name: '访问来源',
+									
 									type: 'pie',
 									id: 'pie',
-									center:['85%','55%'],
+									center:['78%','55%'],
 									radius: ['20%', '35%'],
 									avoidLabelOverlap: false,
 									label: {
-											show: false,
-											position:'center',
-											formatter: '{b}',
+											show: true,
+											position:'outside',
+											formatter: '{b}:({d}%)',
 
 										},
 									encode: {
@@ -1525,9 +1495,6 @@
 											fontSize:15
 										}
 									},
-									labelLine: {
-										show: false
-									},
 
 								}
 							]
@@ -1541,7 +1508,7 @@
 								series: {
 									id: 'pie',
 									label: {
-										formatter: '{b}'
+										formatter: '{b}:({d}%)'
 									},
 									encode: {
 										value: dimension,
@@ -3497,22 +3464,22 @@ itemStyle: { // ========图形样式，有 normal 和 emphasis 两个状态。
 					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp4.潜力研究方向：2010年至2019年，该区研究方向发文数量和在影响力前5%论文中平均占有率不足10%，平均增长率达20%。<br>
 					2010-2019十年来各个方向论文数量和影响力情况如下表所示:
 					</p>
-				    <table width="90%" class="table">
+				    <table style="width: 80%;" class="table">
 						<thead>
 							<tr>
-								<th style="padding-bottom: 2%;">
+								<th style="text-align: center;vertical-align: middle;">
 									论文类别
 								</th>
-								<th style="padding-bottom: 2%;"> 
+								<th style="text-align: center;vertical-align: middle;"> 
 									论文数量平均占有率
 								</th>
-								<th>
+								<th style="text-align: center;vertical-align: middle;">
 									发文数量平均占有增长率
 								</th>
-								<th>
+								<th style="text-align: center;vertical-align: middle;">
 									在影响力前5%论文中平均占有率
 								</th>
-								<th>
+								<th style="text-align: center;vertical-align: middle;">
 									在影响力前5%论文中平均占有增长率
 								</th>
 							</tr>

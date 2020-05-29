@@ -8196,7 +8196,7 @@ button.bg-dark:focus {
   }
   .pt-md-5,
   .py-md-5 {
-    padding-top: 3rem !important;
+    padding-top:1rem !important;
   }
   .pr-md-5,
   .px-md-5 {
@@ -8204,7 +8204,7 @@ button.bg-dark:focus {
   }
   .pb-md-5,
   .py-md-5 {
-    padding-bottom: 3rem !important;
+    padding-bottom: 1rem !important;
   }
   .pl-md-5,
   .px-md-5 {
@@ -8332,7 +8332,7 @@ button.bg-dark:focus {
   }
   .mt-lg-5,
   .my-lg-5 {
-    margin-top: 1rem !important;
+    margin-top: 0rem !important;
   }
   .mr-lg-5,
   .mx-lg-5 {

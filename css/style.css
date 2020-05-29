@@ -731,10 +731,11 @@ h3.title-w3ls.two {
     text-transform: capitalize;
     margin-bottom: 1em;
     text-align: center;
+    padding-top: 1.5rem;
 }
 
 .cont-inf-w3ls p {
-    margin: 1em 0;
+    /* margin: 1em 0; */
     font-size: 17px;
     color: black;
     text-align: left;
